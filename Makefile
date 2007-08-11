@@ -12,5 +12,5 @@ gera-html: html
 push: ps
 	git push
 
-envia: gera-rahtml
-	rsync --delete -av genoslab-handbook.html_dir/* genos.mus.br:/var/www/genos.mus.br/handbook/
+envia: pdf gera-html
+	rsync --delete -av genoslab-handbook.html_dir/* genoslab-handbook.pdf genos.mus.br:/var/www/genos.mus.br/handbook/
