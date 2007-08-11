@@ -1,0 +1,3 @@
+%standard_section_headings =
+  ('part' , 'H1' , 'chapter' , 'H2', 'section', 'H3', 'subsection', 'H4'
+    , 'subsubsection', 'H5', 'paragraph', 'H6', 'subparagraph', 'H6' );
