@@ -5,7 +5,7 @@
 \usepackage{graphicx}
 \usepackage{html}
 
-\title{Genos Handbook}
+\title{Genoslab Handbook}
 \author{Pedro Kröger}
 
 \begin{document}
@@ -154,5 +154,78 @@ em um arquivo nyquist.el, carregar o emacs sem as configurações de
 usuario (ou seja, sem carregar o .emacs) e carregar o arquivo
 nyquist.el quando o emacs iniciar. Esse método é meio gambiarrico, mas
 até ter uma solução adquada parece ser a melhor maneira.
+
+\chapter{SuperCollider}
+\label{cha:supercollider}
+
+O SuperCollider é uma linguagem de programação para síntese de áudio
+em tempo real e composição algorítmica. A página do programa fica em
+\url{http://supercollider.sourceforge.net}.
+
+\section{Instalação}
+\label{sec:instalacao-2}
+
+Para instalar o supercollider no debian é só executar o comando
+abaixo:
+
+\begin{verbatim}
+aptitude install supercollider supercollider-doc supercollider-server
+\end{verbatim}
+
+\section{Uso básico}
+\label{sec:uso-basico-1}
+
+Nós vamos usar o SuperCollider dentro do Emacs. Para ativar o modo
+sclang que permite interagir com o SC coloque a seguinte linha no seu
+\texttt{~/.emacs}:
+
+\begin{verbatim}
+(require 'sclang)
+\end{verbatim}
+
+O SuperCollider usar o jack para entrada e saida, então tenha certeza
+de te-lo rodando antes de carregar o SC. Inicie o emacs e carregue o
+modo sclang:
+
+\begin{verbatim}
+M-x sclang-start
+\end{verbatim}
+
+O emacs vai abrir dois \textit{buffers}, um chamado *SCLang:Workspace*
+e outro *SCLang:PostBuffer*. No Workspace você pode digitar comandos
+do SC. Os resultados dos comandos vão aparecer no PostBuffer.
+
+O menu SCLang no emacs tem diversos comandos para lidar com o SC. O
+mais importante é como parar um som que esteja tocando. Você pode
+acessá-lo em SCLang$\leftarrow$Stop Main no menu, ou pelo teclado com
+\texttt{C-c C-s}. Para computar uma linha de código use \texttt{C-c
+  C-c } (ou \textit{Evaluate Line} no menu).
+
+Para iniciar o servidor, digite a linha abaixo e, com o cursor em
+qualquer lugar da linha, digite \texttt{C-c C-c}:
+
+\begin{verbatim}
+s = Server.local.boot;
+\end{verbatim}
+
+Agora compute a linha abaixo para tocar um lá continuamente (lembre de
+usar o \texttt{C-c C-s} para parar o som).
+
+\begin{verbatim}
+{SinOsc.ar(442, 0, 0.2) }.play;
+\end{verbatim}
+
+Finalmente, para demonstrar o poder expressivo do SuperCollider, veja
+o que é possível de fazer com uma única linha de código:
+
+\begin{verbatim}
+play{SinOsc.ar(OnePole.ar(Mix(LFSaw.ar([1,0.99],[0,0.6],2000,2000).trunc([400,600])*[1,-1]),0.98)).dup*0.1};
+\end{verbatim}
+
+\section{Para saber mais}
+\label{sec:para-saber-mais-1}
+
+O site do SuperCollider tem vários tutoriais na página
+\url{http://supercollider.sourceforge.net/learning}.
 
 \end{document}
