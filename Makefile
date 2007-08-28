@@ -7,8 +7,8 @@ USE_PDFLATEX=1
 default: pdf
 
 gera-html: 
-	cp genoslab.css $(NAME)
 	latex2html -split 2 -style genoslab.css -noaddress -init_file latex2htmlrc -show_section_numbers $(NAME).tex
+	cp genoslab.css $(NAME)
 
 push: ps
 	git push
