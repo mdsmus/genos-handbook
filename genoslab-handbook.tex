@@ -1,6 +1,7 @@
-\documentclass[brazil]{book}
+\documentclass[12pt,brazil]{book}
 \usepackage{babel}
 \usepackage[utf8x]{inputenc}
+\usepackage[top=2.5cm,left=2.5cm,bottom=2.5cm,right=2.5cm]{geometry}
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{html}
@@ -22,6 +23,168 @@
 
 \part{Introdução}
 \label{part:introducao}
+
+\part{Ferramentas}
+\label{part:ferramentas}
+
+\chapter{Git}
+\label{cha:git}
+
+\section{Introdução}
+\label{sec:introducao}
+
+O Git (o ``g'' é pronunciado como na palavra gato e não como ``jit'')
+é um programa para controle de versão distribuído desenvolvido por
+Linus Torvalds (o criador do Linux) e mantido por Junio C Hamano. A
+página do git em \url{http://git.or.cz/} tem vários tutoriais e
+manuais.
+
+\section{Instalação}
+\label{sec:instalacao-3}
+
+Para instalar o git no debian execute o seguinte comando.
+
+\begin{verbatim}
+aptitude install git-core git-completion git-doc git-gui gitk gpg
+\end{verbatim}
+
+É uma boa idéia configurar o git para usar o seu nome e email:
+
+\begin{verbatim}
+git config --global user.name "Seu Nome"
+git config --global user.email "seu@email.com.br"
+\end{verbatim}
+
+\section{Repositórios do genos}
+\label{sec:acesso-de-escrita}
+
+O genos mantém diversos repositórios listados em
+\url{git.genos.mus.br}. Para ter acesso de escrita você precisa criar
+uma chave pública de criptografia. Para isso rode o comando:
+
+\begin{verbatim}
+ssh-keygen -t rsa
+\end{verbatim}
+
+Esse comando vai fazer uma série de perguntas como o tamanho da chave,
+seu nome e email, etc. Se você não souber a resposta para alguma
+pergunta não precisa se preocupar, o valor padrão deve ser o
+suficiente. Quando ele pedir uma passphrase, certifique-se que você
+não vai esquecê-la! A chave pública vai ser geradad no arquivo
+\texttt{~/.ssh/id\_rsa.pub}. Para ter acesso de escrita nos
+repositórios do genos envie o arquivo para Pedro Kroger.
+
+Se você enviou a chave pública e seu acesso foi liberado, você pode
+baixar um projeto no repositório do genos com o comando abaixo:
+
+\begin{verbatim}
+git clone ssh://cons@genos.mus.br/repos/<nome do projeto>
+\end{verbatim}
+
+Por exemplo, para baixar o projeto analise-harmonica você deve
+digitar:
+
+\begin{verbatim}
+git clone ssh://cons@genos.mus.br/repos/analise-harmonica.git
+\end{verbatim}
+
+\begin{verbatim}
+git clone $repos/analise-harmonica.git
+\end{verbatim}
+
+Contudo, se você não tem acesso de escrita ao repositório, ou seja,
+não tem permissão para modificar o repositório diretamente, você ainda
+pode baixar um projeto e contribuir mudanças (veja a seção
+\ref{sec:enviando-patches}). Para isso baixe o repositório com o
+comando abaixo:
+
+\begin{verbatim}
+git clone http://genos.mus.br/repos/<nome de repositório>
+\end{verbatim}
+
+\section{Comandos básicos}
+\label{sec:comandos-basicos}
+
+Você deve gravar suas mudanças com
+
+\begin{verbatim}
+git commit
+\end{verbatim}
+
+E enviar suas mudanças para o repositório central com o comando:
+
+\begin{verbatim}
+git push
+\end{verbatim}
+
+Para atualizar sua cópia local, ou seja, para baixar as mudanças que
+outros tenham feito no repositório, use o comando:
+
+\begin{verbatim}
+git pull
+\end{verbatim}
+
+Revertendo mudanças que não foram enviadas.
+
+\begin{verbatim}
+git checkout -f
+\end{verbatim}
+
+\section{Usando o git para branches}
+\label{sec:usando-o-git}
+
+Para ver os ramos do repositório basta usar o comando. Ele terá uma
+saída como essa:
+
+\begin{verbatim}
+git branch
+* master
+  origin
+\end{verbatim}
+
+Para mudar de ramo usa-se o comando
+
+\begin{verbatim}
+git checkout
+\end{verbatim}
+
+Mudando do ramo master para origin:
+
+\begin{verbatim}
+git checkout origin
+\end{verbatim}
+
+Conferindo o novo ramo:
+
+\begin{verbatim}
+git branch
+  master
+* origin
+\end{verbatim}
+
+\section{Configuração}
+\label{sec:configuracao}
+
+Eu sugiro que você coloque algo como a linha abaixo no seu
+\texttt{~/.bashrc}.
+
+\begin{verbatim}
+export repos=ssh://cons@genos.mus.br/repos
+\end{verbatim}
+
+Desse modo você poderá baixar um projeto de uma maneira mais fácil:
+
+Se você é viciado em saída colorida vai querer executar os comandos abaixo:
+
+\begin{verbatim}
+git config --global color.diff auto
+git config --global color.status auto
+git config --global color.branch auto
+\end{verbatim}
+
+\section{Enviando patches}
+\label{sec:enviando-patches}
+
 
 \part{Programas de áudio}
 \label{part:programas-de-audio}
@@ -79,7 +242,13 @@ diretório deve ser onde você descompactou o CLM.
 
 A figura abaixo mostra o resultado dessa expressão no emacs.
 
-\includegraphics{slime1}
+\begin{htmlonly}
+  \includegraphics{slime1}
+\end{htmlonly}
+
+\begin{latexonly}
+  \includegraphics[scale=.5]{slime1}
+\end{latexonly}
 
 Agora rode o comando abaixo para compilar o CLM.
 
@@ -141,7 +310,13 @@ funcionando. O comando abaixo vai tocar um dó central:
 (play (osc 60))
 \end{verbatim}
 
-\includegraphics{ny1}
+\begin{htmlonly}
+  \includegraphics{ny1}
+\end{htmlonly}
+
+\begin{latexonly}
+  \includegraphics[scale=.5]{ny1}
+\end{latexonly}
 
 Nyquist vem com uma IDE escrita em Java. Ela ainda não está no pacote
 do debian. Eu confesso que essa IDE não é muito boa. Eu prefiro
