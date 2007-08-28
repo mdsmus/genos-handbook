@@ -49,7 +49,7 @@ manuais.
 Para instalar o git no debian execute o seguinte comando.
 
 \begin{verbatim}
-aptitude install git-core git-completion git-doc git-gui gitk gpg
+aptitude install git-core git-completion git-doc git-gui gitk ssh
 \end{verbatim}
 
 É uma boa idéia configurar o git para usar o seu nome e email:
@@ -145,7 +145,7 @@ Para mudar de ramo usa-se o comando
 git checkout
 \end{verbatim}
 
-Mudando do ramo master para origin:
+Mudando do ramo master para novo-ramo:
 
 \begin{verbatim}
 git checkout novo-ramo
@@ -177,7 +177,7 @@ Para listar os ramos em um repositório remoto
 git branch -r
 \end{verbatim}
 
-Para baixar um ramo no repositório remoto usa-se \texttt{git track}
+Para baixar um ramo no repositório remoto usa-se \texttt{git branch}
 com a opção \texttt{--track}, indicando qual o nome do ramo local e o
 nome do ramo remoto. É uma boa prática ter o mesmo nome para os ramos
 local e remoto.
