@@ -24,6 +24,10 @@
 \part{Introdução}
 \label{part:introducao}
 
+\section{Como contribuir para esse documento}
+\label{sec:como-contribuir-para}
+
+
 \part{Ferramentas}
 \label{part:ferramentas}
 
@@ -88,10 +92,6 @@ digitar:
 git clone ssh://cons@genos.mus.br/repos/analise-harmonica.git
 \end{verbatim}
 
-\begin{verbatim}
-git clone $repos/analise-harmonica.git
-\end{verbatim}
-
 Contudo, se você não tem acesso de escrita ao repositório, ou seja,
 não tem permissão para modificar o repositório diretamente, você ainda
 pode baixar um projeto e contribuir mudanças (veja a seção
@@ -130,16 +130,13 @@ Revertendo mudanças que não foram enviadas.
 git checkout -f
 \end{verbatim}
 
-\section{Usando o git para branches}
+\section{Usando diferentes ramos}
 \label{sec:usando-o-git}
 
-Para ver os ramos do repositório basta usar o comando. Ele terá uma
-saída como essa:
+Para ver os ramos do repositório basta usar o comando
 
 \begin{verbatim}
 git branch
-* master
-  origin
 \end{verbatim}
 
 Para mudar de ramo usa-se o comando
@@ -151,7 +148,7 @@ git checkout
 Mudando do ramo master para origin:
 
 \begin{verbatim}
-git checkout origin
+git checkout novo-ramo
 \end{verbatim}
 
 Conferindo o novo ramo:
@@ -159,11 +156,61 @@ Conferindo o novo ramo:
 \begin{verbatim}
 git branch
   master
-* origin
+* novo-ramo
 \end{verbatim}
+
+Para criar um novo ramo e mudar para ele automaticamente usa-se
+
+\begin{verbatim}
+git checkout -b novo-ramo
+\end{verbatim}
+
+Para enviar um novo ramo para o repositório remoto:
+
+\begin{verbatim}
+git push origin ramo-local:ramo-remoto
+\end{verbatim}
+
+Para listar os ramos em um repositório remoto
+
+\begin{verbatim}
+git branch -r
+\end{verbatim}
+
+Para baixar um ramo no repositório remoto usa-se \texttt{git track}
+com a opção \texttt{--track}, indicando qual o nome do ramo local e o
+nome do ramo remoto. É uma boa prática ter o mesmo nome para os ramos
+local e remoto.
+
+\begin{verbatim}
+git branch --track novo-ramo origin/novo-ramo
+\end{verbatim}
+
+O nome \texttt{origin} nada mais é que um alias para a localização de
+um repositório. Essa informação fica armazenada no arquivo
+\texttt{.git/config} dentro do repositório. O trecho do
+\texttt{.git/config} referente a configuração de \texttt{origin} pode
+ser vista abaixo:
+
+\begin{verbatim}
+[remote "origin"]
+        url = ssh://cons@genos.mus.br/repos/teste.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+\end{verbatim}
+
+Veja na seção \ref{sec:o-arquivo-config} outras possibilidades de uso
+para o arquivo \texttt{.git/config}.
+
+Para manter os ramos atualizados, \texttt{git pull} e \texttt{git
+  push} devem ser suficientes. O Git mantém cada ramo separado sem
+interferir no outro. Contudo, mudanças sem commit vão aparecer em
+todos os ramos.
 
 \section{Configuração}
 \label{sec:configuracao}
+
+\subsection{Usando abreviações}
+\label{sec:usando-abreviacoes}
 
 Eu sugiro que você coloque algo como a linha abaixo no seu
 \texttt{~/.bashrc}.
@@ -173,6 +220,33 @@ export repos=ssh://cons@genos.mus.br/repos
 \end{verbatim}
 
 Desse modo você poderá baixar um projeto de uma maneira mais fácil:
+
+\begin{verbatim}
+git clone $repos/analise-harmonica.git
+\end{verbatim}
+
+\subsection{O arquivo config}
+\label{sec:o-arquivo-config}
+
+Você pode configurar o arquivo \texttt{.git/config} de um repositório
+local para usar nomes abreviados. Isso é particularmente útil se está
+usando mais de um repositório ou ramos diferentes.
+
+\begin{verbatim}
+cat >>.git/config <<EOF
+[remote "public-repo"]
+        url = ssh://yourserver.com/~you/proj.git
+EOF
+\end{verbatim}
+
+Você pode fazer a mesma coisa com \texttt{git remote}:
+
+\begin{verbatim}
+git remote add public-repo ssh://example.com/project.git
+\end{verbatim}
+
+\subsection{Saída colorida}
+\label{sec:saida-colorida}
 
 Se você é viciado em saída colorida vai querer executar os comandos abaixo:
 
