@@ -1,6 +1,8 @@
 genoslab-handbook.html_dir
 auto
+genoslab-handbook/*
 genoslab-handbook.aux
+genoslab-handbook.ps
 genoslab-handbook.dvi
 genoslab-handbook.html-stamp
 genoslab-handbook.log

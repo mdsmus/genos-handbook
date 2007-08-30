@@ -31,6 +31,30 @@
 \part{Ferramentas}
 \label{part:ferramentas}
 
+\chapter{Repositórios debian}
+\label{cha:repositorios-debian}
+
+Para instalar o csound5 você deve usar o pacote debian do Genos. Para
+isso coloque a seguinte linha no seu \texttt{/etc/apt/sources.list}
+(como root):
+
+\begin{verbatim}
+deb http://genos.mus.br/ debian/
+\end{verbatim}
+
+Em seguida rode o comando
+
+\begin{verbatim}
+aptitude update
+\end{verbatim}
+
+Agora você pode instalar os programas disponíveis no genos digitando
+algo como o comando abaixo como root.
+
+\begin{verbatim}
+aptitude install <nome do programa>
+\end{verbatim}
+
 \chapter{Git}
 \label{cha:git}
 
@@ -472,5 +496,196 @@ play{SinOsc.ar(OnePole.ar(Mix(LFSaw.ar([1,0.99],[0,0.6],2000,2000).trunc([400,60
 
 O site do SuperCollider tem vários tutoriais na página
 \url{http://supercollider.sourceforge.net/learning}.
+
+\chapter{Csound}
+\label{cha:csound}
+
+\section{Instalação}
+\label{sec:instalacao-4}
+
+Para instalar o csound5 você deve usar o pacote debian do Genos. Veja
+a seção \ref{cha:repositorios-debian} para ver como configurar seu
+computador para usar o repositório de pacotes do Genos.
+
+Tendo configurado o repositório do genos é só dar o comando abaixo
+para instalar o csound.
+
+\begin{verbatim}
+aptitude install csound5
+\end{verbatim}
+
+Finalmente coloque a linha abaixo no seu \texttt{.bashrc}:
+
+\begin{verbatim}
+export OPCODEDIR=/usr/lib/csound/plugins
+\end{verbatim}
+
+\section{Uso básico}
+\label{sec:uso-basico-2}
+
+Para testar a instalação, crie um arquivo \texttt{teste.orc} com o seguinte
+conteúdo:
+
+\begin{verbatim}
+instr 1
+  a1        oscil     1000,440,1
+            out       a1       
+endin
+\end{verbatim}
+
+Crie também um arquivo \texttt{teste.sco} com o conteúdo abaixo:
+
+\begin{verbatim}
+f1  0 1024  10    1
+
+i1 0 3
+\end{verbatim}
+
+Para usar o csound no terminal basta digitar \texttt{csound
+  <orquestra> <partitura>}, por exemplo:
+
+\begin{verbatim}
+csound teste.orc teste.sco
+\end{verbatim}
+
+O csound vai gerar um arquivo de áudio chamado \texttt{teste.wav}.
+Para ouvir em tempo real use a opção \texttt{-o}:
+
+\begin{verbatim}
+csound -odac teste.orc teste.sco
+\end{verbatim}
+
+Essa opção também pode ser usada para determinar o nome do arquivo de
+áudio da saída:
+
+\begin{verbatim}
+csound -o teste.wav teste.orc teste.sco
+\end{verbatim}
+
+\section{O modo para emacs}
+\label{sec:o-modo-para}
+
+Um modo avançado e completo do csound para emacs está disponível em
+\url{www.zogotounga.net/comp/csoundx.html}. Execute o comando abaixo
+para baixar e descompactar o arquivo:
+
+\begin{verbatim}
+http://www.zogotounga.net/comp/stef-elisp-2.09.zip
+unzip stef-elisp-2.09.zip
+\end{verbatim}
+
+Em seguida coloque as seguintes linhas no seu \texttt{.emacs}. Não
+esqueça de trocar o diretório do comando \texttt{add-to-list} para o
+diretório onde você baixou o modo.
+
+\begin{verbatim}
+(add-to-list 'load-path "/home/kroger/lib/emacs/stef-elisp/")
+(require 'stef-elisp)
+\end{verbatim}
+
+A medida que você for customizando seu emacs, pode querer colocar
+todas as extensões em um diretório específico. Eu sugiro
+\verb|~/lib/emacs|.
+
+\chapter{Snd}
+\label{cha:snd}
+
+\section{Instalação}
+\label{sec:instalacao-5}
+
+Para instalar a versão mais nova do snd configure seu computador para
+usar o repositório de pacotes debian do genos. Veja como fazer isso na
+seção \ref{cha:repositorios-debian}. Para instalar o snd é só digitar
+o comando abaixo (como root):
+
+\begin{verbatim}
+aptitude install snd
+\end{verbatim}
+
+\section{O modo para emacs}
+\label{sec:o-modo-para-1}
+
+O snd é um programa para edição de áudio super poderoso. Ele é
+completamente customisável usando scheme, um dialeto de lisp. Ele pode
+ser controlado a partir do emacs. Para isso, baixe o arquivo
+\url{www.genos.mus.br/handbook/src/inf-snd.el} para algum lugar no seu
+computador (eu sugiro \verb|~/lib/emacs/|) e coloque as seguintes
+linhas no seu \texttt{.emacs}:
+
+\begin{verbatim}
+(autoload 'run-snd-scheme   "inf-snd" "Start inferior Snd-Scheme process" t)
+(autoload 'snd-scheme-mode  "inf-snd" "Load snd-scheme-mode." t)
+(setq inf-snd-scheme-program-name "snd")
+
+(add-to-list 'auto-mode-alist '("\\.snd$" . snd-scheme-mode))
+
+(add-hook 'snd-scheme-mode-hook
+          (lambda ()
+            (local-set-key "\r" 'newline-and-indent)
+            (setq lisp-indent-function 'common-lisp-indent-function)
+            (setq indent-tabs-mode nil)))
+\end{verbatim}
+
+\section{Uso básico com o emacs}
+\label{sec:uso-basico-3}
+
+Inicie o jack e o emacs. Depois que o emacs iniciar, execute o comando
+
+\begin{verbatim}
+A-x run-snd-scheme
+\end{verbatim}
+
+Esse comando vai abrir o scheme e um modo interativo dentro do emacs.
+Dentro do emacs abra um arquivo novo com a extensão \texttt{.snd}, por
+exemplo, \texttt{teste.snd}. Observe que vai aparecer o menu
+\texttt{Snd/Scheme} no menu do emacs. Como o snd tem o CLM embutido,
+você pode fazer coisas semelhantes à seção \ref{cha:clm-common-lisp}.
+Mas tenha em mente que no CLM estamos usando Common Lisp enquanto no
+Snd estamos usando Scheme. Os dois são parecidos (são dialetos de
+lisp) mas nem tudo que funciona em um funciona no outro. No arquivo
+\texttt{teste.snd} digite o código abaixo:
+
+\begin{verbatim}
+(load-from-path "v.scm")
+(with-sound () (fm-violin 0 3 440 .1))
+\end{verbatim}
+
+\newcommand{\sep}{$\rightarrow$}
+
+Você pode computar cada expressão no menu em Snd/Scheme\sep Send last
+Sexp, ou usar \texttt{C-x C-e}. Observe que quando você carregar o
+arquivo \texttt{v.ins} ele vai aparecer automaticamente no snd. Você
+pode tocar o arquivo com \texttt{C-c C-p} e parar de tocar com
+\texttt{C-c C-t}.
+
+Você pode usar a função \texttt{do} para tocar um arpejo:
+
+\begin{verbatim}
+(with-sound ()
+  (do ((i 0 (1+ i)))
+      ((= i 8))
+    (fm-violin (* i .25) .5 (* 100 (1+ i)) .1)))
+\end{verbatim}
+
+Assim como o CLM, os instrumentos são definidos com
+\texttt{definstrument}. O instrumento abaixo toca uma senóide simples:
+
+\begin{verbatim}
+(definstrument (simp beg dur freq amp)
+  (let* ((os (make-oscil freq))
+	 (start (seconds->samples beg))
+	 (end (+ start (seconds->samples dur))))
+    (run
+      (lambda ()
+        (do ((i start (1+ i))) 
+            ((= i end))
+          (outa i (* amp (oscil os)) *output*))))))
+\end{verbatim}
+
+Para tocar o instrumento é só chamar a função \texttt{simp}:
+
+\begin{verbatim}
+(with-sound () (simp 0 3 440 .1))
+\end{verbatim}
 
 \end{document}

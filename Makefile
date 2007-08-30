@@ -4,10 +4,8 @@ USE_PDFLATEX=1
 
 #LATEX2HTML_FLAGS += -split 2 -style genoslab.css -noaddress -init_file latex2htmlrc -show_section_numbers -dir html
 
-default: pdf
-
-gera-html: 
-	latex2html -split 2 -style genoslab.css -noaddress -init_file latex2htmlrc -show_section_numbers $(NAME).tex
+gera-html: pdf
+	latex2html -split 3 -style genoslab.css -noaddress -init_file latex2htmlrc -show_section_numbers $(NAME).tex
 	cp genoslab.css $(NAME)
 
 push: ps
@@ -20,7 +18,7 @@ ver:
 	firefox genoslab-handbook/index.html 
 
 gera-remote: pdf gera-html
-	rsync --delete -av $(NAME)/* genoslab-handbook.pdf /var/www/genos.mus.br/handbook/
+	rsync --delete -av $(NAME)/* genoslab-handbook.pdf src /var/www/genos.mus.br/handbook/
 
 envia: gera-html pdf
 	rsync --delete -av genoslab-handbook.html_dir/* genoslab-handbook.pdf genos.mus.br:/var/www/genos.mus.br/handbook/
