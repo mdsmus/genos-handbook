@@ -16,6 +16,9 @@ push: ps
 cleanall: clean
 	rm -rf $(NAME)
 
+ver:
+	firefox genoslab-handbook/index.html 
+
 gera-remote: pdf gera-html
 	rsync --delete -av $(NAME)/* genoslab-handbook.pdf /var/www/genos.mus.br/handbook/
 
