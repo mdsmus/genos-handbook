@@ -327,10 +327,10 @@ Em seguida coloque o seguinte código no final do arquivo
 \verb|~/.swank.lisp|:
 
 \begin{verbatim}
-(require :asdf)
-(setf *clm-dir* #p"/home/kroger/clm-3/")
-(push *clm-dir* asdf:*central-registry*)
 (defun clm ()
+  (require :asdf)
+  (setf *clm-dir* #p"/home/kroger/clm-3/")
+  (push *clm-dir* asdf:*central-registry*)
   (asdf:operate 'asdf:load-source-op :clm)
   (setf *default-pathname-defaults* *clm-dir*))
 \end{verbatim}
