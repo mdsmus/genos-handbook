@@ -6,6 +6,8 @@
 \usepackage{graphicx}
 \usepackage{html}
 
+\newcommand{\sep}{$\rightarrow$}
+
 \title{Genoslab Handbook}
 \author{Pedro Kröger}
 
@@ -230,6 +232,13 @@ Para manter os ramos atualizados, \texttt{git pull} e \texttt{git
 interferir no outro. Contudo, mudanças sem commit vão aparecer em
 todos os ramos.
 
+Para mesclar as mudanças do branch \texttt{master} no seu ramo é só
+fazer:
+
+\begin{verbatim}
+git pull .
+\end{verbatim}
+
 \section{Configuração}
 \label{sec:configuracao}
 
@@ -412,17 +421,83 @@ funcionando. O comando abaixo vai tocar um dó central:
   \includegraphics[scale=.5]{ny1}
 \end{latexonly}
 
-Nyquist vem com uma IDE escrita em Java. Ela ainda não está no pacote
-do debian. Eu confesso que essa IDE não é muito boa. Eu prefiro
-desenvolver usando o bom e velho Emacs. O problema é que não existe um
-modo específico para o Nyquist, e se você configurar o emacs
-globalmente para o Nyquist vai interferir com o Slime. A solução que
-eu dou por enquanto é salvar \htmladdnormallink{essas
-  configurações}{http://www.audacity-forum.de/download/edgar/nyquist/nyquist-doc/examples/emacs/main.html}
-em um arquivo nyquist.el, carregar o emacs sem as configurações de
-usuario (ou seja, sem carregar o .emacs) e carregar o arquivo
-nyquist.el quando o emacs iniciar. Esse método é meio gambiarrico, mas
-até ter uma solução adquada parece ser a melhor maneira.
+O manual do nyquist está disponível em
+\url{http://www.cs.cmu.edu/~rbd/doc/nyquist/root.html} e em
+\url{/usr/share/doc/nyquist/doc/home.html} se você instalou o pacote
+debian.
+
+\section{O modo para emacs}
+\label{sec:o-modo-para-2}
+
+Um modo preliminar do emacs para o nyquist pode ser encontrado em
+\url{www.genos.mus.br/handbook/src/inf-nyquist.el}. Baixe o arquivo em
+algum lugar no seu computador (eu sugiro \verb|~/lib/emacs/|) e
+coloque as seguintes linhas no seu \texttt{.emacs}:
+
+\begin{verbatim}
+(autoload 'run-nyquist-lisp   "inf-snd" "Start inferior Snd-Lisp process" t)
+(autoload 'nyquist-lisp-mode  "inf-nyquist" "Load nyquist-lisp-mode." t)
+(setq inf-nyquist-lisp-program-name "ny")
+
+(add-to-list 'auto-mode-alist '("\\.ny$" . nyquist-lisp-mode))
+
+(add-hook 'nyquist-lisp-mode-hook
+          (lambda ()
+            (slime-mode nil)
+            (local-set-key "\r" 'newline-and-indent)
+            (setq lisp-indent-function 'common-lisp-indent-function)
+            (setq indent-tabs-mode nil)))
+\end{verbatim}
+
+Todos os arquivos com a extensão \texttt{.ny} estarão associados ao
+nyquist.
+
+\section{Usando o nyquist com o emacs}
+\label{sec:usando-o-nyquist}
+
+Inicie o emacs e abra um arquivo com a extensão \texttt{.ny}, por
+exemplo, \texttt{foo.ny}. Observe que o item ``Nyquist'' vai aparecer
+no menu. Para iniciar o nyquist escolha no menu Nyquist\sep Start
+Nyquist-lisp process ou \texttt{C-c C-s} no teclado. Um buffer chamado
+\texttt{*Nyquist-lisp*} será aberto. Esse buffer é o modo interativo
+do nyquist.
+
+Você pode digitar comandos do nyquist no arquivo aberto (no nosso caso
+\texttt{foo.ny}) e enviá-los para o nyquist com \texttt{C-x C-e} ou
+através do menu em Nyquist\sep Send last Sexp.
+
+\begin{htmlonly}
+  \includegraphics{ny2}
+\end{htmlonly}
+
+\begin{latexonly}
+  \includegraphics[scale=.5]{ny2}
+\end{latexonly}
+
+\section{Desenvolvendo plugins do audacity com o nyquist}
+\label{sec:desenv-plug-do}
+
+O audacity tem uma versão do nyquist embutida, de modo que plugins
+podem ser desenvolvidos com ele. Os arquivos de plugins devem ser
+colocados em \texttt{~/.audacity-files/plug-ins} e o audacity deve ser
+reiniciado toda vez que um novo plugin for criado. 
+
+Crie um arquivo \texttt{teste.ny} com o seguinte conteúdo:
+
+\begin{verbatim}
+;nyquist plug-in
+;version 1
+;type process
+;name "Teste de fade in"
+;action "Fading In..."
+(mult (ramp) s)
+\end{verbatim}
+
+Observe que o efeito ``Teste de fade in'' vai aparecer no menu de
+efeitos do audacity.
+
+Um breve tutorial de como criar plugins do audacity com o nyquist pode
+ser visto em \url{http://audacity.sourceforge.net/help/nyquist3}.
 
 \chapter{SuperCollider}
 \label{cha:supercollider}
@@ -649,8 +724,6 @@ lisp) mas nem tudo que funciona em um funciona no outro. No arquivo
 (load-from-path "v.scm")
 (with-sound () (fm-violin 0 3 440 .1))
 \end{verbatim}
-
-\newcommand{\sep}{$\rightarrow$}
 
 Você pode computar cada expressão no menu em Snd/Scheme\sep Send last
 Sexp, ou usar \texttt{C-x C-e}. Observe que quando você carregar o
