@@ -4,8 +4,10 @@ USE_PDFLATEX=1
 
 #LATEX2HTML_FLAGS += -split 2 -style genoslab.css -noaddress -init_file latex2htmlrc -show_section_numbers -dir html
 
+latex2html = latex2html -html_version 4.0,unicode -split 3 -style genoslab.css -noaddress -init_file latex2htmlrc -show_section_numbers
+
 gera-html: pdf
-	latex2html -split 3 -style genoslab.css -noaddress -init_file latex2htmlrc -show_section_numbers $(NAME).tex
+	$(latex2html) $(NAME).tex
 	cp genoslab.css $(NAME)
 
 push: ps

@@ -50,3 +50,6 @@ pre {
     padding: 10px;
     margin: 0.5em 2em;
 }
+
+.textit {font-style:italic;}
+.textbf {font-weight:bold; }
