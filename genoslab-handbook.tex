@@ -134,10 +134,11 @@ git clone http://genos.mus.br/repos/<nome de repositório>
 Você deve gravar suas mudanças com
 
 \begin{verbatim}
-git commit
+git commit -m "mensagem descrevendo o commit"
 \end{verbatim}
 
-E enviar suas mudanças para o repositório central com o comando:
+Use o comando abaixo para enviar suas mudanças para o repositório
+central:
 
 \begin{verbatim}
 git push
@@ -150,11 +151,41 @@ outros tenham feito no repositório, use o comando:
 git pull
 \end{verbatim}
 
-Revertendo mudanças que não foram enviadas.
+Para reverter as mudanças que não foram enviadas use
 
 \begin{verbatim}
 git checkout -f
 \end{verbatim}
+
+\section{Escrevendo boas mensagens de commit}
+\label{sec:escr-boas-mens}
+
+Além de usar a opção \texttt{-m} para indicar a mensagem de commit,
+você também pode digitar apenas \texttt{git commit} onde o git vai
+abrir o editor padrão para você digitar a mensagem de commit. Em geral
+o editor padrão é o vi. Eu sugiro que você coloque a linha abaixo no
+seu \texttt{~/.bashrc}:
+
+\begin{verbatim}
+  export EDITOR="emacs"
+\end{verbatim}
+
+Desse modo o git sempre vai abrir o emacs para pedir a mensagem de
+commit.
+
+Em geral uma mensagem de commit tem o seguinte formato:
+
+\begin{verbatim}
+primeira linha
+
+texto mais longo texto mais longo texto mais longo
+texto mais longo texto mais longo texto mais longo
+texto mais longo texto mais longo texto mais longo 
+\end{verbatim}
+
+Onde a primeira linha é um breve sumário da modificações, o texto mais
+longo contém mais detalhes. Observe que elas são separadas por uma
+linha em branco.
 
 \section{Usando diferentes ramos}
 \label{sec:usando-o-git}
@@ -291,6 +322,173 @@ git config --global color.branch auto
 
 \section{Enviando patches}
 \label{sec:enviando-patches}
+
+\chapter{BibTeX}
+\label{cha:bibtex}
+
+\section{Introdução}
+\label{sec:introducao-1}
+
+BibTeX é um formato de arquivo para citações bibliográficas.
+
+\section{Utilitários para o BibTeX}
+\label{sec:utilitarios-para-o}
+
+Os artigos \textit{Bibliography prettyprinting and syntax checking} e
+\textit{A Bibliographer's Toolbox} de Nelson H. F. Beebe contém
+informações importantes sobre ferramentas para lidar com o BibTeX.
+Eles podem ser baixados em
+\url{http://www.math.utah.edu/~beebe/publications/1993/tugboat-14-4-395-dec-1993.pdf}
+ e \url{http://www.math.utah.edu/~beebe/talks/2004/pt2004/pt2004.pdf},
+respectivamente. A página \textit{Manipulating BibTeX Bibliographies}
+em \url{http://liinwww.ira.uka.de/bibliography/Bib.Format.html} também
+contém informações importantes.
+
+utilitários para emacs
+
+http://www.math.utah.edu/pub/emacs/
+
+\section{Citando publicações on-line}
+\label{sec:citando-publ-line}
+
+As urls para documentos devem ser colocadas no campo ``url''. Se
+existem mais de uma url separe-as com espaços em branco ou use vários
+campos na forma ``xxx-url'' onde xxx é algum texto explicativo como
+dvi, pdf etc. Urls de resumos devem ser colocadas no campo
+``abstract-url''. Os estilos is-{abbrv,alpha,plain,unsrt} reconhecem
+os campos ISBN, URL, IOB, dentre outros.
+
+\begin{verbatim}
+abntex - LaTeX class for writing documents in ABNT standard
+bibclean - pretty-printer for BibTeX databases
+bibcursed - An interactive program to edit BibTeX bibliographies
+bibindex - Fast lookup in BibTeX bibliography data bases
+bibtex2html - filters BibTeX files and translates them to HTML
+bibtool - tool for BibTeX database manipulation
+gbib - user-friendly editor and browser for BibTeX databases
+jed - editor for programmers (textmode version)
+kbibtex - BibTeX editor for KDE
+pybliographer - tool for manipulating bibliographic databases
+search-ccsb - BibTeX search tool
+search-citeseer - BibTeX search tool
+tellico - collection manager for books, videos, music
+tellico-data - collection manager for books, videos, music [data]
+\end{verbatim}
+
+\section{Dicas gerais}
+\label{sec:dicas-gerais}
+
+Não use et al.
+
+busca de bibtex na internet  +@Book +Knuth
+
+``A colleague once quipped: “When you see a paper cited as
+Jones et al., it means that Jones got the credit, but Al did the
+work.”''
+
+Karlsruhe Bibliography Archive
+
+considerar campo bibdate
+
+aprender teclas de atalho bibtex
+
+fazer scripts para converter dados de webpage para gerar bibtex
+
+usar full journal names
+
+usar strings para abreviar
+
+Two programs, journal.awk and publisher.awk, filter an input BIBTEX
+stream, and output a new stream in which journal, publisher, and
+address values that have been found to match any of several common
+variations are replaced by the standardized abbreviations, and the
+data stream is prefixed by corresponding @String{. . . } definitions.
+
+%% proteção de titulos
+
+The easy cases are those words with mixed case, such as BiCGS and
+McLeod, which are always known to be proper nouns in need of
+protection;
+
+%% dividir arquivos bibtex
+The bibsplit21 tool splits them into parts, separating entries into
+different output files according to one of several criteria: author,
+citation label, citation count, or year range. I’ve had to do this
+numerous times with journalspecific bibliographies as their entry
+count grows. Usually, subdivision into decade-specific bibliographies
+suffices.
+
+% agrep
+
+mostra aproximações (com erros), mostra paragrafo inteiro (entrada
+completa do bibtex)
+
+bibsearch
+
+aspell para bibtex com arquivos de exceção
+
+chkdelim
+
+Doubled words Doubled-word errors (as in the the book) are difficult
+for humans to spot. My dw program (http://www.math.utah.edu/pub/dw/)
+
+bibparse31
+• biblex (included with bibparse)
+• bibunlex (included with bibparse)
+• bibclean32
+
+The first of these, bibparse, merely confirms that its input conforms
+to the grammar: a successful validation produces no output. I use this
+as an initial check of updates to the bibliographic archives before
+even attempting to run LATEX and BIBTEX: any error from bibparse
+immediately aborts the entire automated installation process.
+
+The second, biblex, parses the input and produces a token stream that
+is much easier to handle by other tools.
+
+The third, bibunlex, reassembles a biblex token stream, possibly after
+filtering, reconstructing a valid BIBTEX file.
+
+The fourth, and most powerful, bibclean, has been of enormous
+importance in my bibliographic work. It is based on the same rigorous
+grammar as bibparse, but is implemented completely independently with
+a carefully-hand-coded parser, instead of the machine-generated parser
+in bibparse. That way, there are two independent checks on the
+validity of the syntax of BIBTEX data. bibclean normally produces a
+prettyprinted bibliography file in which numerous repairs and checks
+have been made on the data. For hundreds of thousands of examples, see
+the TEX Users Group Bibliography Archive33 and the BibNet Project
+archive.34 On request, however, bibclean produces the same token
+streams as biblex.
+
+validação de field: bibclean e bibcheck
+
+• biblabel36 and its companion tool citesub, and an independent
+implementation in the emacs BIBTEX-LABELS37 library, generate
+standardized citation labels that are unlikely to conflict with those
+of other entries, and importantly, that are easy for humans to predict
+as well.
+
+• bibsort38 sorts entries in a bibliography by any of a half-dozen
+different criteria.
+
+• biborder39 reorders fields within a BIBTEX entry into a standard
+order, making the entries much easier to read.
+
+• bibjoin40 merges adjacent BIBTEX entries that appear to describe the
+same publication, discarding duplicate data, choosing more detailed
+values over less detailed ones (e.g., in the author field, the longer
+of Donald E. Knuth and D. E. Knuth), and otherwise leaving the
+duplicate fields adjacent for manual correction.
+
+• bibdup41 checks for duplicate abbreviations and entries.
+
+• For interactive location and repair of problems, the emacs function
+find-duplicate-label from the BIBTOOLS library42 finds the next
+occurrence of consecutive entries with the same citation label. The
+function find-duplicate-key from the same library finds the next
+instance of duplicate adjacent field names in a single BIBTEX entry.
+
 
 \part{Programas de áudio}
 \label{part:programas-de-audio}
@@ -430,7 +628,7 @@ debian.
 \label{sec:o-modo-para-2}
 
 Um modo preliminar do emacs para o nyquist pode ser encontrado em
-\url{www.genos.mus.br/handbook/src/inf-nyquist.el}. Baixe o arquivo em
+\url{http://www.genos.mus.br/handbook/src/inf-nyquist.el}. Baixe o arquivo em
 algum lugar no seu computador (eu sugiro \verb|~/lib/emacs/|) e
 coloque as seguintes linhas no seu \texttt{.emacs}:
 
@@ -683,7 +881,7 @@ aptitude install snd
 O snd é um programa para edição de áudio super poderoso. Ele é
 completamente customisável usando scheme, um dialeto de lisp. Ele pode
 ser controlado a partir do emacs. Para isso, baixe o arquivo
-\url{www.genos.mus.br/handbook/src/inf-snd.el} para algum lugar no seu
+\url{http://www.genos.mus.br/handbook/src/inf-snd.el} para algum lugar no seu
 computador (eu sugiro \verb|~/lib/emacs/|) e coloque as seguintes
 linhas no seu \texttt{.emacs}:
 
