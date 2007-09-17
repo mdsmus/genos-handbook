@@ -57,6 +57,14 @@ algo como o comando abaixo como root.
 aptitude install <nome do programa>
 \end{verbatim}
 
+\section{Debian}
+\label{sec:debian}
+
+\section{Modo emacs para apt}
+\label{sec:modo-emacs-para}
+
+http://www.netfort.gr.jp/~dancer/software/apt-mode.html
+
 \chapter{Git}
 \label{cha:git}
 
@@ -323,6 +331,19 @@ git config --global color.branch auto
 \section{Enviando patches}
 \label{sec:enviando-patches}
 
+Para criar patches com suas modificações você deve usar o
+\texttt{format-patch}. Esse comando vai gerar uma série de arquivos
+numerados, como \texttt{0001-mais-stuff.patch}. Você deve enviar esses
+arquivos para a lista de discussão apropriada.
+
+\begin{verbatim}
+ git format-patch origin
+\end{verbatim}
+
+Se a quantidade de patches for muito grande, você pode usar o
+\texttt{git-send-email}, caso contrário é ok usar seu cliente de email
+favorito.
+
 \chapter{BibTeX}
 \label{cha:bibtex}
 
@@ -343,6 +364,8 @@ Eles podem ser baixados em
 respectivamente. A página \textit{Manipulating BibTeX Bibliographies}
 em \url{http://liinwww.ira.uka.de/bibliography/Bib.Format.html} também
 contém informações importantes.
+
+http://ebib.sourceforge.net/
 
 utilitários para emacs
 
@@ -375,120 +398,119 @@ tellico - collection manager for books, videos, music
 tellico-data - collection manager for books, videos, music [data]
 \end{verbatim}
 
-\section{Dicas gerais}
-\label{sec:dicas-gerais}
+% \section{Dicas gerais}
+% \label{sec:dicas-gerais}
 
-Não use et al.
+% Não use et al.
 
-busca de bibtex na internet  +@Book +Knuth
+% busca de bibtex na internet  +@Book +Knuth
 
-``A colleague once quipped: “When you see a paper cited as
-Jones et al., it means that Jones got the credit, but Al did the
-work.”''
+% ``A colleague once quipped: “When you see a paper cited as
+% Jones et al., it means that Jones got the credit, but Al did the
+% work.”''
 
-Karlsruhe Bibliography Archive
+% Karlsruhe Bibliography Archive
 
-considerar campo bibdate
+% considerar campo bibdate
 
-aprender teclas de atalho bibtex
+% aprender teclas de atalho bibtex
 
-fazer scripts para converter dados de webpage para gerar bibtex
+% fazer scripts para converter dados de webpage para gerar bibtex
 
-usar full journal names
+% usar full journal names
 
-usar strings para abreviar
+% usar strings para abreviar
 
-Two programs, journal.awk and publisher.awk, filter an input BIBTEX
-stream, and output a new stream in which journal, publisher, and
-address values that have been found to match any of several common
-variations are replaced by the standardized abbreviations, and the
-data stream is prefixed by corresponding @String{. . . } definitions.
+% Two programs, journal.awk and publisher.awk, filter an input BIBTEX
+% stream, and output a new stream in which journal, publisher, and
+% address values that have been found to match any of several common
+% variations are replaced by the standardized abbreviations, and the
+% data stream is prefixed by corresponding @String{. . . } definitions.
 
-%% proteção de titulos
+% %% proteção de titulos
 
-The easy cases are those words with mixed case, such as BiCGS and
-McLeod, which are always known to be proper nouns in need of
-protection;
+% The easy cases are those words with mixed case, such as BiCGS and
+% McLeod, which are always known to be proper nouns in need of
+% protection;
 
-%% dividir arquivos bibtex
-The bibsplit21 tool splits them into parts, separating entries into
-different output files according to one of several criteria: author,
-citation label, citation count, or year range. I’ve had to do this
-numerous times with journalspecific bibliographies as their entry
-count grows. Usually, subdivision into decade-specific bibliographies
-suffices.
+% %% dividir arquivos bibtex
+% The bibsplit21 tool splits them into parts, separating entries into
+% different output files according to one of several criteria: author,
+% citation label, citation count, or year range. I’ve had to do this
+% numerous times with journalspecific bibliographies as their entry
+% count grows. Usually, subdivision into decade-specific bibliographies
+% suffices.
 
-% agrep
+% % agrep
 
-mostra aproximações (com erros), mostra paragrafo inteiro (entrada
-completa do bibtex)
+% mostra aproximações (com erros), mostra paragrafo inteiro (entrada
+% completa do bibtex)
 
-bibsearch
+% bibsearch
 
-aspell para bibtex com arquivos de exceção
+% aspell para bibtex com arquivos de exceção
 
-chkdelim
+% chkdelim
 
-Doubled words Doubled-word errors (as in the the book) are difficult
-for humans to spot. My dw program (http://www.math.utah.edu/pub/dw/)
+% Doubled words Doubled-word errors (as in the the book) are difficult
+% for humans to spot. My dw program (http://www.math.utah.edu/pub/dw/)
 
-bibparse31
-• biblex (included with bibparse)
-• bibunlex (included with bibparse)
-• bibclean32
+% bibparse31
+% • biblex (included with bibparse)
+% • bibunlex (included with bibparse)
+% • bibclean32
 
-The first of these, bibparse, merely confirms that its input conforms
-to the grammar: a successful validation produces no output. I use this
-as an initial check of updates to the bibliographic archives before
-even attempting to run LATEX and BIBTEX: any error from bibparse
-immediately aborts the entire automated installation process.
+% The first of these, bibparse, merely confirms that its input conforms
+% to the grammar: a successful validation produces no output. I use this
+% as an initial check of updates to the bibliographic archives before
+% even attempting to run LATEX and BIBTEX: any error from bibparse
+% immediately aborts the entire automated installation process.
 
-The second, biblex, parses the input and produces a token stream that
-is much easier to handle by other tools.
+% The second, biblex, parses the input and produces a token stream that
+% is much easier to handle by other tools.
 
-The third, bibunlex, reassembles a biblex token stream, possibly after
-filtering, reconstructing a valid BIBTEX file.
+% The third, bibunlex, reassembles a biblex token stream, possibly after
+% filtering, reconstructing a valid BIBTEX file.
 
-The fourth, and most powerful, bibclean, has been of enormous
-importance in my bibliographic work. It is based on the same rigorous
-grammar as bibparse, but is implemented completely independently with
-a carefully-hand-coded parser, instead of the machine-generated parser
-in bibparse. That way, there are two independent checks on the
-validity of the syntax of BIBTEX data. bibclean normally produces a
-prettyprinted bibliography file in which numerous repairs and checks
-have been made on the data. For hundreds of thousands of examples, see
-the TEX Users Group Bibliography Archive33 and the BibNet Project
-archive.34 On request, however, bibclean produces the same token
-streams as biblex.
+% The fourth, and most powerful, bibclean, has been of enormous
+% importance in my bibliographic work. It is based on the same rigorous
+% grammar as bibparse, but is implemented completely independently with
+% a carefully-hand-coded parser, instead of the machine-generated parser
+% in bibparse. That way, there are two independent checks on the
+% validity of the syntax of BIBTEX data. bibclean normally produces a
+% prettyprinted bibliography file in which numerous repairs and checks
+% have been made on the data. For hundreds of thousands of examples, see
+% the TEX Users Group Bibliography Archive33 and the BibNet Project
+% archive.34 On request, however, bibclean produces the same token
+% streams as biblex.
 
-validação de field: bibclean e bibcheck
+% validação de field: bibclean e bibcheck
 
-• biblabel36 and its companion tool citesub, and an independent
-implementation in the emacs BIBTEX-LABELS37 library, generate
-standardized citation labels that are unlikely to conflict with those
-of other entries, and importantly, that are easy for humans to predict
-as well.
+% • biblabel36 and its companion tool citesub, and an independent
+% implementation in the emacs BIBTEX-LABELS37 library, generate
+% standardized citation labels that are unlikely to conflict with those
+% of other entries, and importantly, that are easy for humans to predict
+% as well.
 
-• bibsort38 sorts entries in a bibliography by any of a half-dozen
-different criteria.
+% • bibsort38 sorts entries in a bibliography by any of a half-dozen
+% different criteria.
 
-• biborder39 reorders fields within a BIBTEX entry into a standard
-order, making the entries much easier to read.
+% • biborder39 reorders fields within a BIBTEX entry into a standard
+% order, making the entries much easier to read.
 
-• bibjoin40 merges adjacent BIBTEX entries that appear to describe the
-same publication, discarding duplicate data, choosing more detailed
-values over less detailed ones (e.g., in the author field, the longer
-of Donald E. Knuth and D. E. Knuth), and otherwise leaving the
-duplicate fields adjacent for manual correction.
+% • bibjoin40 merges adjacent BIBTEX entries that appear to describe the
+% same publication, discarding duplicate data, choosing more detailed
+% values over less detailed ones (e.g., in the author field, the longer
+% of Donald E. Knuth and D. E. Knuth), and otherwise leaving the
+% duplicate fields adjacent for manual correction.
 
-• bibdup41 checks for duplicate abbreviations and entries.
+% • bibdup41 checks for duplicate abbreviations and entries.
 
-• For interactive location and repair of problems, the emacs function
-find-duplicate-label from the BIBTOOLS library42 finds the next
-occurrence of consecutive entries with the same citation label. The
-function find-duplicate-key from the same library finds the next
-instance of duplicate adjacent field names in a single BIBTEX entry.
-
+% • For interactive location and repair of problems, the emacs function
+% find-duplicate-label from the BIBTOOLS library42 finds the next
+% occurrence of consecutive entries with the same citation label. The
+% function find-duplicate-key from the same library finds the next
+% instance of duplicate adjacent field names in a single BIBTEX entry.
 
 \part{Programas de áudio}
 \label{part:programas-de-audio}
