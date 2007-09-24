@@ -344,6 +344,62 @@ Se a quantidade de patches for muito grande, você pode usar o
 \texttt{git-send-email}, caso contrário é ok usar seu cliente de email
 favorito.
 
+\chapter{Gravação de CD e DVD}
+\label{cha:gravacao-de-cd}
+
+\section{Copiando um CD ou DVD}
+\label{sec:copiando-um-cd}
+
+A maneira mais fácil de copiar um DVD ou CD completamente é usando o
+\texttt{dd}. A opção \texttt{if} (\textit{input file}) indica o
+dispositivo do DVD ou CD e a opção \texttt{of} (\texttt{output file})
+indica o nome da imagem que será gerada:
+
+\begin{verbatim}
+dd if=/dev/sr1 of=arquivo.iso
+\end{verbatim}
+
+O arquivo gerado será uma réplica exata do CD. Inclusive você pode
+montar a imagem usando mount:
+
+\begin{verbatim}
+mount -o loop /tmp/arquivo.iso /mnt
+\end{verbatim}
+
+\section{Identificando o fabricante da mídia}
+\label{sec:ident-o-fabr}
+
+Para identificar o verdadeiro fabricante de uma mídia de DVD use o
+comando \texttt{dvd+rw-mediainfo} como abaixo:
+
+\begin{verbatim}
+dvd+rw-mediainfo /dev/dvd
+\end{verbatim}
+
+Para identificar o verdadeiro fabricante de uma mídia de CD use a
+opção \texttt{-atip} do wodim.
+
+\begin{verbatim}
+wodim -atip 
+\end{verbatim}
+
+\section{Recuperando dados}
+\label{sec:recuperando-dados}
+
+Se o disco tem problemas o \texttt{ddrescue} pode ser uma boa opção.
+Para ler um disco:
+
+\begin{verbatim}
+ddrescue /dev/dvd DVD.iso DVD.log
+\end{verbatim}
+
+Se \texttt{ddrescue} reportar algum erro, tente uma segunda vez com o
+acesso direto ao disco ativado:
+
+\begin{verbatim}
+ddrescue -d -r1 /dev/dvd DVD.iso DVD.log
+\end{verbatim}
+
 \chapter{BibTeX}
 \label{cha:bibtex}
 
