@@ -278,6 +278,67 @@ fazer:
 git pull .
 \end{verbatim}
 
+\section{Resolvendo conflitos}
+\label{sec:resolvendo-conflitos}
+
+Quando um merge não é resolvido automaticamente pelo git ele indica
+isso claramente. Você não vai conseguir dar um commit. Tanto commit
+quanto status vão mostrar os arquivos que precisam resolver os
+conflitos:
+
+\begin{verbatim}
+git commit
+file.txt: needs merge
+\end{verbatim}
+
+Git vai marcar os conflitos no arquivo usando marcadores de conflito.
+Abaixo podemos ver um conflito marcado com duas versões:
+
+\begin{verbatim}
+<<<<<<< HEAD:file.txt
+Uma versão
+=======
+Outra versão
+>>>>>>> 77976da35a11db4580b80ae27e8d65caf5208086:file.txt
+\end{verbatim}
+
+Tudo que você precisa fazer é editar o arquivo para resolver os
+conflitos e dar um commit com:
+
+\begin{verbatim}
+git add file.txt
+git commit
+\end{verbatim}
+
+Se você usa emacs pode usar o \texttt{M-x vc-resolve-conflicts} para
+lhe auxiliar na resolução de conflitos (ele funciona como o ediff).
+
+\section{Revisões antigas}
+\label{sec:revisoes-antigas}
+
+Você pode ver uma versão antiga de um arquivo com \texttt{cat-file}:
+
+\begin{verbatim}
+git cat-file -p tags/v1.4.3:git.c
+git cat-file -p f5f75c652b9c2347522159a87297820103e593e4:git.c
+\end{verbatim}
+
+\section{Enviando patches}
+\label{sec:enviando-patches}
+
+Para criar patches com suas modificações você deve usar o
+\texttt{format-patch}. Esse comando vai gerar uma série de arquivos
+numerados, como \texttt{0001-mais-stuff.patch}. Você deve enviar esses
+arquivos para a lista de discussão apropriada.
+
+\begin{verbatim}
+ git format-patch origin
+\end{verbatim}
+
+Se a quantidade de patches for muito grande, você pode usar o
+\texttt{git-send-email}, caso contrário é ok usar seu cliente de email
+favorito.
+
 \section{Configuração}
 \label{sec:configuracao}
 
@@ -327,22 +388,6 @@ git config --global color.diff auto
 git config --global color.status auto
 git config --global color.branch auto
 \end{verbatim}
-
-\section{Enviando patches}
-\label{sec:enviando-patches}
-
-Para criar patches com suas modificações você deve usar o
-\texttt{format-patch}. Esse comando vai gerar uma série de arquivos
-numerados, como \texttt{0001-mais-stuff.patch}. Você deve enviar esses
-arquivos para a lista de discussão apropriada.
-
-\begin{verbatim}
- git format-patch origin
-\end{verbatim}
-
-Se a quantidade de patches for muito grande, você pode usar o
-\texttt{git-send-email}, caso contrário é ok usar seu cliente de email
-favorito.
 
 \chapter{Gravação de CD e DVD}
 \label{cha:gravacao-de-cd}
