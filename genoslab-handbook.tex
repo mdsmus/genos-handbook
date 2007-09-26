@@ -230,6 +230,13 @@ Para criar um novo ramo e mudar para ele automaticamente usa-se
 git checkout -b novo-ramo
 \end{verbatim}
 
+Para ver a lista de commits no novo-ramo em relação a master (pode-se
+usar a opção \texttt{-p} para ver um diff do código:
+
+\begin{verbatim}
+git log  master..novo-ramo
+\end{verbatim}
+
 Para enviar um novo ramo para o repositório remoto:
 
 \begin{verbatim}
@@ -277,6 +284,21 @@ fazer:
 \begin{verbatim}
 git pull .
 \end{verbatim}
+
+\section{Escolhendo commits específicos (cherry picking)}
+\label{sec:escolh-comm-espec}
+
+Você pode aplicar um commit específico na sua árvore com
+\texttt{cherry-pick}. No exemplo abaixo estamos no branch master e o
+commit 85cd08ee1aec0fbd3cf3d696a70872639e59212f aconteceu no branch
+novo-ramo. Ele vai aplicar apenas esse commit em master.
+
+\begin{verbatim}
+git cherry-pick 85cd08ee1aec0fbd3cf3d696a70872639e59212f
+\end{verbatim}
+
+Isso é útil quando você corrigiu um bug em um ramo de desenvolvimento
+e quer replica-lo no ramo principal.
 
 \section{Resolvendo conflitos}
 \label{sec:resolvendo-conflitos}
