@@ -153,17 +153,92 @@ git push
 \end{verbatim}
 
 Para atualizar sua cópia local, ou seja, para baixar as mudanças que
-outros tenham feito no repositório, use o comando:
+outros tenham feito no repositório, use os comandos:
 
 \begin{verbatim}
-git pull
+git fetch
+git rebase origin/<branch remoto>
 \end{verbatim}
+
+onde <branch remoto> é o branch remoto onde o desenvolvimento
+acontece. Provavelmente é master.
 
 Para reverter as mudanças que não foram enviadas use
 
 \begin{verbatim}
 git checkout -f
 \end{verbatim}
+
+
+\section{Pull vs Rebase}
+
+Existem dois jeitos de importar as mudanças de um repositório remoto
+pro repositório local. Elas são o ``pull'' e o ``rebase''. A diferença
+é a forma como as mudanças locais são mantidas na hora de importar as
+remotas.
+
+Imagine uma árvore de commits assim (onde local é o branch atual de desenvolvimento):
+
+\begin{verbatim}
+                     A---B---C local
+                    /
+               D---E---F---G master
+\end{verbatim}
+
+Após um ``git pull'' aplicado no computador local, a árvore fica:
+
+\begin{verbatim}
+                     A---B---C---F'--G' local
+                    /           /
+               D---E---F---G ----master
+\end{verbatim}
+
+Após um git push, a árvore no repositório remoto fica
+
+\begin{verbatim}
+                     A---B---C---F'--G'-- 
+                    /           /        \
+               D---E---F---G -------------A'--B'--C'--F''--G''  master
+\end{verbatim}
+
+Isso não é muito interessante por serem feitos, ao todo, dois merges
+das mudanças locais no repositório remoto. Com mais de duas pessoas
+fazendo mudanças ao mesmo tempo esse método gera árvores de histórico
+complicadas e difíceis de entender depois, com vários merges.
+
+Uma alternativa é usar ``git rebase origin/master'' em vez de ``git
+pull''. Fazendo isso, a árvore local, que era
+
+\begin{verbatim}
+                     A---B---C local
+                    /
+               D---E---F---G master
+\end{verbatim}
+
+fica
+
+\begin{verbatim}
+                             A'---B'---C' local
+                            /
+               D---E---F---G master
+\end{verbatim}
+
+Após um ``git push'', a árvore do servidor fica
+
+\begin{verbatim}
+                             A'---B'---C'-
+                            /             \
+               D---E---F---G ---------------  master
+\end{verbatim}
+
+ou
+
+\begin{verbatim}
+               D---E---F---G---A'--B'--C'-----  master
+\end{verbatim}
+
+o que é muito mais limpo. Mesmo com várias pessoas desenvolvendo isso
+tende a gerar históricos mais lineares.
 
 \section{Escrevendo boas mensagens de commit}
 \label{sec:escr-boas-mens}
