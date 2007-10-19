@@ -1,5 +1,5 @@
-\documentclass[12pt,brazil]{book}
 \usepackage{babel}
+\documentclass[12pt,brazil]{book}
 \usepackage[utf8x]{inputenc}
 \usepackage[top=2.5cm,left=2.5cm,bottom=2.5cm,right=2.5cm]{geometry}
 \usepackage{url}
@@ -316,6 +316,12 @@ Para enviar um novo ramo para o repositório remoto:
 
 \begin{verbatim}
 git push origin ramo-local:ramo-remoto
+\end{verbatim}
+
+Talvez você tenha que usar o caminho completo para o ramo, como em:
+
+\begin{verbatim}
+git push origin refs/heads/ramo-local:refs/heads/ramo-remoto
 \end{verbatim}
 
 Para listar os ramos em um repositório remoto
@@ -709,6 +715,10 @@ tellico-data - collection manager for books, videos, music [data]
 % occurrence of consecutive entries with the same citation label. The
 % function find-duplicate-key from the same library finds the next
 % instance of duplicate adjacent field names in a single BIBTEX entry.
+
+\chapter{SLIME}
+\label{cha:slime}
+
 
 \part{Programas de áudio}
 \label{part:programas-de-audio}
