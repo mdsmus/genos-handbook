@@ -10,7 +10,7 @@ gera-html: pdf
 	$(latex2html) $(NAME).tex
 	cp genoslab.css $(NAME)
 
-push: ps
+push: gera-html
 	git push
 
 cleanall: clean

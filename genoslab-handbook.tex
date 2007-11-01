@@ -1,5 +1,5 @@
-\usepackage{babel}
 \documentclass[12pt,brazil]{book}
+\usepackage{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage[top=2.5cm,left=2.5cm,bottom=2.5cm,right=2.5cm]{geometry}
 \usepackage{url}
@@ -1213,9 +1213,11 @@ completa, mas ainda está em desenvolvimento.
 Para ser produtivo com o PD é recomendado que você instale pacotes
 extras, como \textit{externals} e extensões.
 
-% Talvez você tenha que colocar a seguinte linha no seu ~/.bashrc
+Talvez você tenha que colocar a seguinte linha no seu ~/.bashrc
 
-% export LADSPA_PATH=/usr/lib/ladspa/
+\begin{verbatim}
+ export LADSPA_PATH=/usr/lib/ladspa/
+\end{verbatim}
 
 Se voce está interessado em compilar tudo a partir do código-fonte, a
 página em \url{http://puredata.org/docs/developer/Debian} mostra como
