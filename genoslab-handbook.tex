@@ -716,9 +716,39 @@ tellico-data - collection manager for books, videos, music [data]
 % function find-duplicate-key from the same library finds the next
 % instance of duplicate adjacent field names in a single BIBTEX entry.
 
-\chapter{SLIME}
-\label{cha:slime}
+\chapter{VirtualBox}
+\label{cha:virtualbox}
 
+\section{Instalação}
+\label{sec:instalacao-6}
+
+O uso de máquinas virtuais é uma maneira interessante para testar
+distribuições de Linux diferentes ou mesmo ter um windows instalado.
+O virtualbox é uma máquina virtual muito rápida e simples de usar. Ela
+é mais rápida que o qemu, por exemplo. Para instalar o virtualbox no
+debian você precisa instalar os pacotes abaixo e compilar o módulo
+específico para o kernel.
+
+\begin{verbatim}
+aptitude install virtualbox-ose virtualbox-ose-source
+\end{verbatim}
+
+Compilar o módulo para o kernel é trivial com o
+\texttt{module-assistant}. O comando \texttt{m-a} é uma abreviação
+para \texttt{module-assistant} e a opção \texttt{a-i} para
+\textit{auto install}. Esse comando vai baixar os arquivos
+necessários, compilar, e instalar o módulo:
+
+\begin{verbatim}
+m-a a-i virtualbox-ose
+\end{verbatim}
+
+Talvez você precise colocar a linha abaixo em \texttt{/etc/modules}
+para que o módulo seja carregado em cada inicialização:
+
+\begin{verbatim}
+vboxdrv
+\end{verbatim}
 
 \part{Programas de áudio}
 \label{part:programas-de-audio}
