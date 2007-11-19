@@ -1155,6 +1155,32 @@ A medida que você for customizando seu emacs, pode querer colocar
 todas as extensões em um diretório específico. Eu sugiro
 \verb|~/lib/emacs|.
 
+\section{Csound com kate}
+\label{sec:csound-com-kate}
+
+Kate é um editor para o Kde. Talvez você prefira usa-lo no lugar do
+emacs. Primeiro instale-o com o comando abaixo:
+
+\begin{verbatim}
+aptitude install kate
+\end{verbatim}
+
+Em seguida baixe as definições para csound no link abaixo:
+
+\begin{verbatim}
+wget http://flavio.tordini.org/download/kate-csound.zip
+\end{verbatim}
+
+Descompacte o arquivo e copie os arquivos .xml para o diretório de
+configuração do kate. Se você nunca usou o kate antes, provavelmente
+terá que criar o diretório de configuração antes de copiar:
+
+\begin{verbatim}
+unzip kate-csound.zip
+mkdir -p ~/.kde/share/apps/katepart/syntax
+mv csound-*.xml ~/.kde/share/apps/katepart/syntax/
+\end{verbatim}
+
 \chapter{Snd}
 \label{cha:snd}
 
