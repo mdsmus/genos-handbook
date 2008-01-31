@@ -142,7 +142,7 @@ git clone git://genos.mus.br/<nome de repositório>
 Você deve gravar suas mudanças com
 
 \begin{verbatim}
-git commit -m "mensagem descrevendo o commit"
+git commit -a -m "mensagem descrevendo o commit"
 \end{verbatim}
 
 Use o comando abaixo para enviar suas mudanças para o repositório
@@ -441,7 +441,7 @@ numerados, como \texttt{0001-mais-stuff.patch}. Você deve enviar esses
 arquivos para a lista de discussão apropriada.
 
 \begin{verbatim}
- git format-patch origin
+ git format-patch origin/master
 \end{verbatim}
 
 Se a quantidade de patches for muito grande, você pode usar o
