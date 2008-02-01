@@ -139,7 +139,27 @@ git clone git://genos.mus.br/<nome de repositório>
 \section{Comandos básicos}
 \label{sec:comandos-basicos}
 
-Você deve gravar suas mudanças com
+Para gravar uma mudança é necessário primeiro adicioná-la ao
+index. Modifique alguns arquivos e então adicione seu conteúdo
+atualizado ao index:
+
+\begin{verbatim}
+git add arquivo1 arquivo2 arquivo3
+\end{verbatim}
+
+Para ver um sumário da situação do repositório utilize:
+
+\begin{verbatim}
+git status
+\end{verbatim}
+
+Você então deve gravar suas mudanças com:
+
+\begin{verbatim}
+git commit -m "mensagem descrevendo o commit"
+\end{verbatim}
+
+Caso queira adicionar todos os arquivos modificados pode fazer:
 
 \begin{verbatim}
 git commit -a -m "mensagem descrevendo o commit"
