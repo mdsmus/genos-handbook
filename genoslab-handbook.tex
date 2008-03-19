@@ -119,11 +119,11 @@ baixar um projeto no repositório do genos com o comando abaixo:
 git clone ssh://cons@genos.mus.br/repos/<nome do projeto>
 \end{verbatim}
 
-Por exemplo, para baixar o projeto analise-harmonica você deve
+Por exemplo, para baixar o projeto rameau você deve
 digitar:
 
 \begin{verbatim}
-git clone ssh://cons@genos.mus.br/repos/analise-harmonica.git
+git clone ssh://cons@genos.mus.br/repos/rameau.git
 \end{verbatim}
 
 Contudo, se você não tem acesso de escrita ao repositório, ou seja,
@@ -139,10 +139,30 @@ git clone git://genos.mus.br/<nome de repositório>
 \section{Comandos básicos}
 \label{sec:comandos-basicos}
 
-Você deve gravar suas mudanças com
+Para gravar uma mudança é necessário primeiro adicioná-la ao
+index. Modifique alguns arquivos e então adicione seu conteúdo
+atualizado ao index:
+
+\begin{verbatim}
+git add arquivo1 arquivo2 arquivo3
+\end{verbatim}
+
+Para ver um sumário da situação do repositório utilize:
+
+\begin{verbatim}
+git status
+\end{verbatim}
+
+Você então deve gravar suas mudanças com:
 
 \begin{verbatim}
 git commit -m "mensagem descrevendo o commit"
+\end{verbatim}
+
+Caso queira adicionar todos os arquivos modificados pode fazer:
+
+\begin{verbatim}
+git commit -a -m "mensagem descrevendo o commit"
 \end{verbatim}
 
 Use o comando abaixo para enviar suas mudanças para o repositório
@@ -441,7 +461,7 @@ numerados, como \texttt{0001-mais-stuff.patch}. Você deve enviar esses
 arquivos para a lista de discussão apropriada.
 
 \begin{verbatim}
- git format-patch origin
+ git format-patch origin/master
 \end{verbatim}
 
 Se a quantidade de patches for muito grande, você pode usar o
@@ -464,7 +484,7 @@ export repos=ssh://cons@genos.mus.br/repos
 Desse modo você poderá baixar um projeto de uma maneira mais fácil:
 
 \begin{verbatim}
-git clone $repos/analise-harmonica.git
+git clone $repos/rameau.git
 \end{verbatim}
 
 \subsection{O arquivo config}
