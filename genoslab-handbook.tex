@@ -1340,12 +1340,44 @@ fazer isso no Debian.
 \chapter{Lilypond}
 \label{sec:lilypond}
 
-Lilypond é um software para criar partituras musicais para
-impressão. É um software livre e é compatível com plataformas Linux,
-Windows e Mac. O portal do software é bastante completo:
-\url{lilypond.org}
+Lilypond é um software livre para criar partituras musicais para
+impressão compatível com plataformas Linux, Windows e Mac. O Lilypond
+interpreta comandos escritos em um formato próprio, .ly, e gera
+arquivos .ps e .pdf. É possível também gerar arquivos .midi, .png,
+.svg, .dvi e .tex. O portal do software é bastante completo:
+(\url{lilypond.org}). Há um tutorial em português
+(\url{http://erasmo.info/lilypond/tutorial/}) e uma lista de discussão
+brasileira (\url{http://groups.google.com.br/group/lilypond-brasil}).
 
-\section{Abstração de comandos em variáveis}
+
+\section{Código básico para diversas necessidades}
+\label{sec:codigo-basico-para}
+
+\subsection{O mínimo para gerar arquivo midi}
+\label{sec:o-minimo-para}
+
+O código abaixo tem uma estrutura mínima para gerar um arquivo .midi,
+além do .ps e .pdf.
+
+\begin{verbatim}
+\version "2.10.0"
+
+\score {
+  \new Staff {
+    \relative c'' {
+      %% escreva aqui suas notas
+    }
+  }
+  \layout { }
+  \midi { }
+}
+\end{verbatim}
+
+O comando $backslash$version define a versão do Lilypond à qual os
+comandos estão relacionados. O comando $backslash$relative define uma
+oitava relativa para a música. No exemplo acima, dó 4.
+
+\subsection{Abstração de comandos em variáveis}
 \label{sec:abstr-de-comand}
 
 É muito útil usar variáveis para abstrair código.
@@ -1376,7 +1408,7 @@ motivob = {
 }
 \end{verbatim}
 
-\section{Usando variáveis em partituras com vários instrumentos}
+\subsection{Usando variáveis em partituras com vários instrumentos}
 \label{sec:usando-variaveis-em}
 
 Para escrever para vários instrumentos é interessante abstrair o
