@@ -9,7 +9,7 @@
 \newcommand{\sep}{$\rightarrow$}
 
 \title{Genoslab Handbook}
-\author{Pedro Kröger}
+\author{Pedro Kröger e Marcos di Silva}
 
 \begin{document}
 \graphicspath{{figs/}}
@@ -1334,4 +1334,195 @@ Se voce está interessado em compilar tudo a partir do código-fonte, a
 página em \url{http://puredata.org/docs/developer/Debian} mostra como
 fazer isso no Debian.
 
+\part{Outros programas}
+\label{part:outros-programas}
+
+\chapter{Lilypond}
+\label{sec:lilypond}
+
+Lilypond é um software para criar partituras musicais para
+impressão. É um software livre e é compatível com plataformas Linux,
+Windows e Mac. O portal do software é bastante completo:
+\url{lilypond.org}
+
+\section{Abstração de comandos em variáveis}
+\label{sec:abstr-de-comand}
+
+É muito útil usar variáveis para abstrair código.
+
+Um código como este:
+
+\begin{verbatim}
+\relative c' {
+  c4 d e f
+  <c e g>4 <g b d> <c e g> <f a c>
+}
+\end{verbatim}
+
+Pode ser escrito desta forma:
+
+\begin{verbatim}
+motivoa = {
+  c4 d e f
+}
+
+motivob = {
+  <c e g>4 <g b d> <c e g> <f a c>
+}
+
+\relative c' {
+  \motivoa
+  \motivob
+}
+\end{verbatim}
+
+\section{Usando variáveis em partituras com vários instrumentos}
+\label{sec:usando-variaveis-em}
+
+Para escrever para vários instrumentos é interessante abstrair o
+material de cada instrumento em uma variável e, opcionalmente, colocar
+essas variáveis em arquivos diferentes. No exemplo abaixo o material
+dos instrumentos foram abstraídos nas variáveis viola e
+violoncelo. Então inserimos $\backslash$viola e $\backslash$violoncelo
+em partitura.ly e definimos essas variáveis nos arquivos viola.ly e
+violoncelo.ly
+
+Uma partitura com dois instrumentos e variáveis definidas em um único
+arquivo pode ser feita assim:
+
+Arquivo tudo-em-um.ly:
+
+\begin{verbatim}
+%% variável global. aqui inserimos elementos que deverão aparecer em
+%% todos os instrumentos.
+global = {
+  \time 3/4
+  \key c \minor
+  \tempo 4=80
+  s1*3/4*2
+  \bar "||"
+  \tempo 8=60
+  s1*3/4
+  \bar "|."
+}
+
+%% definição da variável viola, com o material musical deste
+%% instrumento.
+viola = {
+  \relative c {
+    \clef alto
+    c\ppp\< d ees
+    f\fff g aes
+    c d ees
+  }
+}
+
+%% definição da variável violoncelo, com o material musical deste
+%% instrumento.
+violoncelo = {
+  \relative c {
+    \clef bass
+    cis\ppp\< dis cis
+    c\fff d c
+    cis dis cis
+  }
+}
+
+%% partitura
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \set Staff.instrumentName = "Viola "
+      \set Staff.midiInstrument = "viola"
+      \global
+      \viola
+    >>
+    \new Staff <<
+      \set Staff.instrumentName = "Violoncelo "
+      \set Staff.midiInstrument = "cello"
+      \global
+      \violoncelo
+    >>
+  >>
+  %% outras configurações gerais (layout, midi, page)
+  \layout { }
+  \midi { }
+}
+\end{verbatim}
+
+Quando a música é grande é interessante colocar as variáveis com
+material dos instrumentos em arquivos diferentes:
+
+Arquivo partitura.ly:
+
+\begin{verbatim}
+%% inclusão de arquivos. Aqui carregamos os arquivos necessários para
+%% gerar a partitura.
+\include "viola.ly"
+\include "violoncelo.ly"
+
+%% variável global. aqui inserimos elementos que deverão aparecer em
+%% todos os instrumentos.
+global = {
+  \time 3/4
+  \key c \minor
+  \tempo 4=80
+  s1*3/4*2
+  \bar "||"
+  \tempo 8=60
+  s1*3/4
+  \bar "|."
+}
+
+%% partitura
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \set Staff.instrumentName = "Viola "
+      \set Staff.midiInstrument = "viola"
+      \global
+      \viola
+    >>
+    \new Staff <<
+      \set Staff.instrumentName = "Violoncelo "
+      \set Staff.midiInstrument = "cello"
+      \global
+      \violoncelo
+    >>
+  >>
+  %% outras configurações gerais (layout, midi, page)
+  \layout { }
+  \midi { }
+}
+
+\end{verbatim}
+
+Arquivo viola.ly:
+
+\begin{verbatim}
+%% definição da variável viola, com o material musical deste
+%% instrumento.
+viola = {
+  \relative c {
+    \clef alto
+    c\ppp\< d ees
+    f\fff g aes
+    c d ees
+  }
+}
+\end{verbatim}
+
+Arquivo violoncelo.ly:
+
+\begin{verbatim}
+%% definição da variável violoncelo, com o material musical deste instrumento.
+violoncelo = {
+  \relative c {
+    \clef bass
+    cis\ppp\< dis cis
+    c\fff d c
+    cis dis cis
+  }
+}
+\end{verbatim}
 \end{document}
