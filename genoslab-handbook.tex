@@ -1573,4 +1573,25 @@ caminho para lilypond-init.el as linhas abaixo:
 (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 \end{verbatim}
 
+\subsection{Criando templates para Lilypond no Emacs}
+\label{sec:criando-templ-para}
+
+O Emacs permite a criação de templates. Abaixo há um exemplo para
+criação de um código .ly simples.
+
+\begin{verbatim}
+(define-skeleton lilypond-simples
+  "Insere um template para lilypond simples."
+  nil
+  "\\version \"2.10.0\"\n"
+  "\\score {\n"
+  "  \\new Staff {\n"
+  "    \\relative c' {\n"
+  "      "_ "\n"
+  "    }\n"
+  "  }\n"
+  "  \\layout { }\n"
+  "  \\midi { }\n"
+  "}\n")
+\end{verbatim}
 \end{document}
