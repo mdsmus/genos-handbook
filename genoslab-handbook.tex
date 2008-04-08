@@ -574,6 +574,66 @@ acesso direto ao disco ativado:
 ddrescue -d -r1 /dev/dvd DVD.iso DVD.log
 \end{verbatim}
 
+\chapter{Emacs}
+\label{cha:emacs}
+
+Emacs é o melhor editor de texto que eu já encontrei na vida.
+
+\section{Definir teclas}
+\label{sec:teclas}
+
+Para definir uma tecla de atalho no seu \texttt{.emacs}, use algo como
+
+\begin{verbatim}
+(global-set-key [(foo bar) baz]  'funcao-a-ser-executada)
+\end{verbatim}
+
+Para definir teclas em um modo específico,
+
+\begin{verbatim}
+(define-key slime-mode-map [(alt control u)] 'rameau-cria-teste-defun)
+(define-key slime-mode-map [(control return)] 'rameau-new-test)
+\end{verbatim}
+
+\section{Macros}
+\label{sec:macros}
+
+Macros de teclado são simples de usar. \texttt{C-x (} começa a gravar
+uma macro e \texttt{C-x )} termina. Para executar, \texttt{C-x
+  e}. Macros aceitam um comando de prefixo, com \texttt{C-x u
+  <<numero>>} antes do \texttt{C-x e}. Para perguntar se o usuário
+quer continuar, use \texttt{C-x q} durante a gravação da macro. Para
+dar nome à macro, \texttt{M-x name-last-kbd-macro}. \texttt{M-x
+  insert-kbd-macro} insere a definição de uma macro no buffer atual,
+útil pra guardar no .emacs. Para editar uma macro, \texttt{C-x k RET},
+e \texttt{C-c C-c} para terminar a edição.
+
+\section{Snippet}
+\label{sec:snippet}
+
+\texttt{snippet.el} (disponível em
+\url{http://www.kazmier.com/computer/snippet.el} é uma biblioteca
+genial para inserir templates de texto. Um exemplo de uso é
+
+\begin{verbatim}
+(defun insert-texttt ()
+  (interactive)
+  (snippet-insert "\\\\texttt{$$}"))
+
+(define-key LaTeX-mode-map [(meta control c)] 'insert-texttt)
+
+\end{verbatim}
+
+que cria a função \texttt{insert-texttt} no modo latex presa às teclas
+\texttt{C-M-c}. Eu recomendo algo como
+
+\begin{verbatim}
+(define-key snippet-map [(control tab)] 'snippet-next-field)
+(define-key snippet-map [(control shift tab)] 'snippet-prev-field)
+\end{verbatim}
+
+no \texttt{.emacs} para usar teclas para snippet.
+
 \chapter{LaTeX}
 \label{cha:latex}
 
@@ -1285,8 +1345,8 @@ Assim como o CLM, os instrumentos são definidos com
 \begin{verbatim}
 (definstrument (simp beg dur freq amp)
   (let* ((os (make-oscil freq))
-	 (start (seconds->samples beg))
-	 (end (+ start (seconds->samples dur))))
+   (start (seconds->samples beg))
+   (end (+ start (seconds->samples dur))))
     (run
       (lambda ()
         (do ((i start (1+ i))) 
