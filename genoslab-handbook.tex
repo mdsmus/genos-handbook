@@ -9,7 +9,7 @@
 \newcommand{\sep}{$\rightarrow$}
 
 \title{Genoslab Handbook}
-\author{Pedro Kröger e Marcos di Silva}
+\author{Pedro Kröger, Marcos di Silva e Alexandre Passos}
 
 \begin{document}
 \graphicspath{{figs/}}
@@ -131,7 +131,7 @@ não tem permissão para modificar o repositório diretamente, você ainda
 pode baixar um projeto e contribuir mudanças (veja a seção
 \ref{sec:enviando-patches}). Para isso baixe o repositório com o
 comando abaixo:
-
+$\langle 4 \: 3\:  2\: 1 \rangle$
 \begin{verbatim}
 git clone git://genos.mus.br/<nome de repositório>
 \end{verbatim}
@@ -633,6 +633,80 @@ que cria a função \texttt{insert-texttt} no modo latex presa às teclas
 \end{verbatim}
 
 no \texttt{.emacs} para usar teclas para snippet.
+
+\section{Dired}
+\label{sec:dired}
+
+Dired é o navegador de arquivos do Emacs. Ele é equivalente ao
+Nautilus do gnome, Konqueror no KDE ou o Windows Explorer. As
+vantagens principais do dired são integração com o Emacs,
+automatização de operações em arquivos e velocidade de edição.
+
+Para iniciar o dired, basta abrir um diretório com \texttt{C-x C-f} ou
+então apertar \texttt{C-x d} ou digitar \texttt{M-x dired}.
+
+A coisa mais simples de se fazer com o dired é deletar arquivos. Para
+fazer isso, coloque o cursor em cima do arquivo a ser deletado e aperte
+\texttt{d} para marcar o arquivo para remoção. Você pode marcar
+quantos arquivos quiser. Depois, aperte \texttt{x} para executar a
+deleção. \texttt{g} atualiza a tela do dired. Para desmarcar um
+arquivo, use \texttt{u}.
+
+O dired também tem comandos para marcar automaticamente alguns
+tipos de arquivos para deleção. \texttt{$\sharp$} marca os arquivos de
+autosave, e \texttt{\~} marca os arquivos temporários. \texttt{\&}
+sugere arquivos temporários para remoção. \texttt{\% d} permite que você
+digite uma expressão regular e marca todos os arquivos que satisfaçam
+essa expressão.
+
+Para abrir um arquivo no dired, \texttt{RET} ou \texttt{f} dão conta
+do recado. Para copiar, use \texttt{C} (C maiúsculo, não
+control). Para renomear, \texttt{R}, para mudar as permissões
+\texttt{M} e \texttt{Z} para gzipar o arquivo. \texttt{L} carrega o
+arquivo no emacs (equivalente a \texttt{M-x load-file}). \texttt{A}
+faz uma busca no arquivo e \texttt{Q} faz um replace. Dentro desses
+comandos, \texttt{M-,} continua a operação. \texttt{!} roda um comando
+do shell no arquivo. \texttt{\% u} e \texttt{\% l} renomeiam arquivos
+para maiúsculas e minúsculas, respectivamente. \texttt{w} copia o nome
+do arquivo selecionado para o clipboard.
+
+Todas essas operações de arquivo operam ou em um arquivo ou em todos
+os arquivos marcados. Para marcar um arquivo use \texttt{m} ou
+\texttt{*}, e para marcar vários use \texttt{\% m}.
+
+Para fazer um diff, selecione um arquivo com \texttt{C-SPC}, mova o
+cursor até o outro arquivo e aperte \texttt{=}. \texttt{C-u i} insere
+os conteúdos do subdiretório selecionado no buffer atual. \texttt{+}
+cria um diretório.
+
+Para entrar no modo editor, use \texttt{M-x
+  wdired-change-to-wdired-mode}. Para salvar e sair, use \texttt{C-c
+  C-c} e para sair sem salvar use \texttt{C-ESC}. Com uma linha tipo
+\texttt{(setq wdired-allow-to-change-permissions t)} no
+\texttt{.emacs} é possível editar as permissões dos arquivos.
+
+\texttt{M-x image-dired} é uma versão do dired que mostra miniaturas
+das imagens em um diretório.
+
+
+\section{imenu}
+\label{sec:imenu}
+
+\texttt{imenu} é um modo útil do emacs para navegar dentro de um
+arquivo de texto grande. Executar \texttt{imenu-add-menubar-index}
+calcula um índice do arquivo separando as seções mais importantes, e
+\texttt{M-x imenu} pede o nome de uma seção e pula para
+ela. \texttt{imenu} funciona em praticamente qualquer modo do emacs.
+
+No seu \texttt{.emacs} você pode colocar as linhas
+\begin{verbatim}
+
+(add-hook 'LaTeX-mode-hook 'imenu-add-menubar-index)
+(define-key LaTeX-mode-map [(control meta g)] 'imenu)
+
+\end{verbatim}
+para habilitar o uso do \texttt{imenu} dentro do auctex, ativando-o
+com \texttt{C-M-g}.
 
 \chapter{LaTeX}
 \label{cha:latex}
