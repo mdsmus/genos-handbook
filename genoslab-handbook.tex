@@ -1577,7 +1577,7 @@ caminho para lilypond-init.el as linhas abaixo:
 \label{sec:criando-templ-para}
 
 O Emacs permite a criação de templates. Abaixo há um exemplo para
-criação de um código .ly simples.
+criação de um código \texttt{.ly} simples.
 
 \begin{verbatim}
 (define-skeleton lilypond-simples
@@ -1594,4 +1594,19 @@ criação de um código .ly simples.
   "  \\midi { }\n"
   "}\n")
 \end{verbatim}
+
+Um conjunto de templates está sendo criado por Shelagh Manton. Em
+mensagem para a lista de desenvolvedores do Lilypond ele
+disponibilizou estes templates:
+\url{http://lists.gnu.org/archive/html/lilypond-devel/2008-04/msg00116.html}.
+
+Para os templates funcionarem é preciso salvar o arquivo do template
+em anexo na mensagem em um diretório que contenha os arquivos
+\texttt{.el}. Depois é só garantir que este diretório é carregado no
+\texttt{~/.emacs} com uma linha como essa:
+
+\begin{verbatim}
+(add-to-list 'load-path "caminho-para-diretório-com-arquivos-.el")
+\end{verbatim}
+
 \end{document}
