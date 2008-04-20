@@ -518,6 +518,58 @@ git config --global color.status auto
 git config --global color.branch auto
 \end{verbatim}
 
+\section{Repositórios remotos}
+\label{sec:remote}
+
+
+O git tem um modo interno muito inteligente para lidar com
+repositórios remotos. Cada repositório pode guardar ``ponteiros'' para
+outros repositórios (chamados de \texttt{remotes} na documentação), e
+o git tem comandos simples para enviar e receber ramos (``branches'')
+desses repositórios. Como o git é bem flexível, vale a pena descrever
+alguns fluxos de trabalho.
+
+\subsection{Exportando um repositório local}
+\label{sec:export-local}
+
+Às vezes se começa a trabalhar em um repositório, se faz coisas e se
+quer pegar essas coisas, colocar em um repositório remoto e manter os
+dois atualizados.
+
+A primeira coisa a se fazer nesse caso é criar o repositório
+remoto. Para fazer isso, vá ao lugar remoto onde vai ficar o
+repositório, crie um diretório com o nome desejado, vá para esse
+diretório e execute
+\begin{verbatim}
+$ git init
+\end{verbatim}
+Isso vai inicializar um repositório git vazio no lugar escolhido.
+
+Depois, vá para o seu repositório local e execute
+\begin{verbatim}
+$ git remote add <nome-remoto> <caminho-para-o-repo-remoto>
+$ git push <nome-remoto> refs/heads/master:refs/heads/master
+\end{verbatim}
+onde <nome-remoto> é o nome que você deseja dar para o repositório
+remoto (o nome padrão pra isso é \texttt{origin}) e
+<caminho-para-o-repo-remoto> é o caminho onde foi colocado o outro
+repo. Se ele é local, basta um ../foo/bar, se ele está num servidor
+com suporte ao protocolo git o endereço é parecido com
+\texttt{git://servidor/repo.git}, e se ele está num servidor com ssh o
+caminho é algo como \texttt{ssh://usuario@servidor/caminho/repo.git}.
+
+Depois desses comandos um
+\begin{verbatim}
+$ git pull <nome-remoto>
+\end{verbatim}
+faz o pull das modificações no repo remoto.
+
+\subsection{Clonando um repositório remoto}
+\label{sec:clone}
+
+O procedimento para clonar um repo remoto está descrito na seção
+\ref{sec:acesso-de-escrita}.
+
 \chapter{Gravação de CD e DVD}
 \label{cha:gravacao-de-cd}
 
