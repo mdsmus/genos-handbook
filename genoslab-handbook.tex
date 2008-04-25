@@ -26,12 +26,169 @@
 \part{Introdução}
 \label{part:introducao}
 
-% TODO
-% \chapter{Como contribuir para esse documento}
-% \label{sec:como-contribuir-para}
+\chapter{Programas no genoslab}
+\label{cha:progr-no-genosl}
+
+Basic infrastructure
+      alsa-tools - Console based ALSA utilities for specific hardware
+      alsa-tools-gui - GUI based ALSA utilities for specific hardware
+      linux-image-rt - Low latency kernel
+      qamix - Configurable mixer for ALSA
+
+JACK and JACK Utilities
+      jackd - JACK Audio Connection Kit (server and example clients)
+      qjackctl - User interface for controlling the JACK sound server
+      bitscope - diagnosis tool for JACK audio software
+      jdelay - A small command line JACK app you can use to measure the latency of your sound card.
+      meterbridge - A collection of Audio meters for the JACK audio server
+      patchage - modular patch bay for Jack audio and Alsa Midi
+      jack-tools - various JACK tools: plumbing, play, udp, ctl, scope, clock
+
+Sound editing and recording
+      audacity - Swiss army audio editor
+      timemachine - JACK audio recorder for spontaneous and conservatory use
+
+Audio playback
+      xmms - Versatile X audio player
+      xmms-jackasyn - JACK Output plugin for xmms
+      xmms-modplug - ModPlug plugin for XMMS
+
+Digital Audio Workstation software
+      ardour - Digital audio workstation (graphical gtk interface)
+      beast - music synthesis and composition framework
+
+Synthesizers
+      fluidsynth - Real-time MIDI software synthesizer
+      bristol - vintage synthesizer emulator
+      freebirth - Bass synthesizer/sample player/sequencer similar to Rebirth
+      qsynth - fluidsynth MIDI sound synthesiser front-end
+      zynaddsubfx - Realtime software synthesizer for Linux
+      csound - powerful and versatile sound synthesis software
+      swami - SoundFont editor
+
+Sampling
+      linuxsampler - software audio sampler
+      sooperlooper - Looping Sampler LADSPA plugin
+
+Sequencing
+      aconnectgui - graphical ALSA sequencer connection manager
+      rosegarden4 - music editor and MIDI/audio sequencer
+      hydrogen - Simple drum machine/step sequencer
+      seq24 - Real time MIDI sequencer
+      jackbeat - audio sequencer
+      muse - Qt-based midi/audio sequencer
+      tk707 - drum sequencer for a sound card or MIDI device
+      shaketracker - MIDI sequencer with tracker GUI
+
+Effects and signal processing
+      jack-rack - LADSPA effects "rack" for JACK
+      tapiir - A tool for real time audio delay and feedback effects
+      freqtweak - Realtime audio frequency spectral manipulation
+      jamin - Audio mastering from a mixed down multitrack source with JACK
+      creox - real-time guitar effects
+      jackeq - routes and manipulates audio from/to multiple sources
+
+DJ tools
+      terminatorx - A realtime audio synthesizer
+      mixxx - A digital DJ interface (for beat-mixing)
+
+MIDI Utilities
+      timidity - Software sound renderer (MIDI sequencer, MOD player)
+      vkeybd - Virtual Keyboard program
+
+Musical typesetting
+      denemo - A gtk+ frontend to GNU Lilypond
+      lilypond-data - LilyPond music typesetter (data files)
+      lilypond - A program for typesetting sheet music
+
+Miscellaneous / uncategorized
+      gtick - Metronome application
+      puredata - realtime computer music and graphics system
+      audatious -
+
+ubuntustudio-plugins
+
+A plug-ins package.
+Package list:
+
+aeolus blop caps cmt hexter fil-plugins ladspa-sdk mcp-plugins omins swh-plugins tap-plugins vcf dssi-example-plugins dssi-host-jack fluidsynth-dssi xsynth-dssi dssi-utils
+Description:
+
+      aeolus - Aeolus is a synthesized (i.e. not sampled) pipe organ emulator
+      blop - Bandlimited wavetable-based oscillator plugins for LADSPA hosts.
+      caps - A collection of refined LADSPA plugins.
+      cmt - (Computer Music Toolkit) A collection of LADSPA compatible plugins.
+      fil-plugins - Parametric equalizer LADSPA plugin.
+      hexter - Yamaha DX7 modeling DSSI plugin
+      ladspa-sdk - Sample tools for linux-audio-dev plugin architecture.
+      mcp-plugins - LADSPA plugins designed for Alsa Modular Synth.
+      omins - Collection of LADSPA plugins geared at modular synthesizers.
+      swh-plugins - Steve Harris's LADSPA plugins.
+      tap-plugins - Tom's Audio Processing LADSPA plugins.
+      vcf - Audio EQ biquad filter LADSPA plugins.
+      dssi-example-plugins - Example DSSI plugins.
+      dssi-host-jack - An example DSSI host.
+      fluidsynth-dssi - Soundfont player/synth for DSSI.
+      xsynth-dssi - A classic-analog style softsynth DSSI plugin.
+      dssi-utils - Command-line utilities for sending commands to DSSI plugins.
+
+ubuntustudio-video
+
+Video editing apps.
+Package list:
+
+openmovieeditor ffmpeg ffmpeg2theora kino stopmotion synfigstudio dvgrab
+Description:
+
+      openmovieeditor - Video editor
+      ffmpeg - Multimedia player, server and encoder
+      ffmpeg2theora - Theora video encoder using ffmpeg
+      kino - A non-linear editor for Digital Video data
+      stopmotion - A program for creating stop motion animation.
+      dvgrab - Grab digital video data via IEEE1394 links
+
+ubuntustudio-graphics
+
+A current, complete set of 2D/3D manipulation applications. ie: Inkscape, GIMP, Blender, and so on.
+Package list:
+
+inkscape blender gimp gimp-gap gimp-ufraw gimp-plugin-registry f-spot scribus fontforge gnome-raw-thumbnailer xsane wacom-tools hugin agave yafray
+Description:
+
+      inkscape - A vector-based drawing program.
+      blender - A very fast and versatile 3D suite for modeling, animation, rendering, post-production, interactive creation and playback.
+      gimp - A raster-based drawing program.
+      gimp-gap - GAP is a collection of plug-ins to extend the GIMP with capabilities to edit and create animations and movies as sequences of single frames.
+      gimp-print - Print plugin for the GIMP
+      gimp-ufraw - A plug-in to import RAW images.
+      gimp-plugin-registry - A collection of GIMP plugins.
+      f-spot - A personal photo management application.
+      scribus - A open source desktop page layout program.
+      fontforge - Font Editor for PS, TrueType and OpenType fonts.
+      gnome-raw-thumbnailer - a thumbnailer for GNOME that will make thumbnails for camera RAW files.
+      xsane - GTK+-based X11 frontend for SANE. (Scanner Access Now Easy)
+      wacom-tools - Software for you Wacom drawing pad.
+      hugin - An easy to use cross-platform GUI for Panorama Tools.
+      synfigstudio - A vector 2D based animation package (GUI)
+      agave - Colorscheme generator.
+      enblend - A tool for compositing images.
+      yafray - A modern, xml-speaking raytracing-based rendering system
+      nautilus-image-converter - nautilus extension to mass resize images
+
+
+\chapter{Como contribuir para esse documento}
+\label{sec:como-contribuir-para}
 
 \part{Ferramentas}
 \label{part:ferramentas}
+
+\chapter{Instalando e configurando o Arch}
+\label{cha:inst-e-conf}
+
+To get it up and running change the /etc/man.conf file and change the PAGER and BROWSER variable to:
+
+PAGER           /usr/bin/most -s
+BROWSER         /usr/bin/most -s
 
 \chapter{Repositórios debian}
 \label{cha:repositorios-debian}
@@ -805,8 +962,31 @@ para que o módulo seja carregado em cada inicialização:
 vboxdrv
 \end{verbatim}
 
-% \part{Programas de áudio}
-% \label{part:programas-de-audio}
+\part{Programas de áudio}
+\label{part:programas-de-audio}
+
+% http://wiki.archlinux.org/index.php/Pro_Audio
+
+You must be in the audio group for user realtime. The file /etc/security/limits.conf should look similar to this:
+
+    * @audio - rtprio 99
+    * @audio - nice -10
+    * @audio - memlock unlimited 
+
+
+\chapter{Kernel com suporte para tempo real}
+\label{cha:kernel-com-suporte}
+
+%http://irc.esben-stien.name/mediawiki/index.php/Setting_Up_Real_Time_Operation_on_GNU/Linux_Systems
+
+% desabilitar esd no gnome
+
+>>> You might need to add following line to your /etc/services(without quote):
+>>> "lash       14541/tcp       # LASH client/server protocol"
+
+>>> Add this line in your /etc/timidity++/timidity.cfg file to enable this soundfont : 
+>>>
+>>> soundfont /usr/share/soundfonts/fluidr3/FluidR3GM.SF2 
 
 % community/jdelay 20060513-3
 %     A command line tool to measure JACK audio server latency
