@@ -760,6 +760,37 @@ No seu \texttt{.emacs} você pode colocar as linhas
 para habilitar o uso do \texttt{imenu} dentro do auctex, ativando-o
 com \texttt{C-M-g}.
 
+\section{Emacs-git}
+\label{sec:emacs-git}
+
+O \texttt{Emacs-Git} é um módulo para manipulação do controle de
+versão \texttt{git} através do \texttt{Emacs}.
+
+É possível baixar pelo repositório git:
+
+\begin{verbatim}
+git clone git://github.com/tsgates/git-emacs.git
+\end{verbatim}
+
+Para instalá-lo é necessário colocar estes arquivos no path do Emacs:
+
+\begin{verbatim}
+git-emacs.el
+git-modeline.el
+git-blame.el
+\end{verbatim}
+
+No \texttt{.emacs} é necessário colocar o caminho para estes arquivos
+e requisitar o \texttt{git-emacs}:
+\begin{verbatim}
+(add-to-list 'load-path "/home/tsgates/Skills/git/git-emacs-1.0")
+(require 'git-emacs)
+\end{verbatim}
+
+É possível usá-lo com M-x ou com teclas de atalho. Os comandos para o
+M-x começam com git (eg. \texttt{M-x git-status}), e os atalhos
+começam com C-x v (eg. \texttt{C-x v =} para git-status).
+
 \chapter{LaTeX}
 \label{cha:latex}
 
