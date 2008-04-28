@@ -791,7 +791,6 @@ Para entrar no modo editor, use \texttt{M-x
 \texttt{M-x image-dired} é uma versão do dired que mostra miniaturas
 das imagens em um diretório.
 
-
 \section{imenu}
 \label{sec:imenu}
 
@@ -841,6 +840,38 @@ e requisitar o \texttt{git-emacs}:
 É possível usá-lo com M-x ou com teclas de atalho. Os comandos para o
 M-x começam com git (eg. \texttt{M-x git-status}), e os atalhos
 começam com C-x v (eg. \texttt{C-x v =} para git-status).
+
+\Section{Version Control (vc)}
+\label{sec:vc}
+
+vc provê uma interface uniforme de controle de versão para o Emacs. Funciona
+com os principais controles de versão, tais como: git, svn e cvs. Para o
+git é necessário instalar o vc-git.
+
+Comando geral do vc, qualquer comando do vc inicia com essas teclas.
+\begin{verbatim}                                                   
+C-x v 
+\end{verbatim}
+
+Marca o arquivo para controle de versão
+\begin{verbatim}                                                                                                
+C-x v i                                                                                                
+\end{verbatim}
+
+Faz commit em um arquivo marcado para controle de versão
+\begin{verbatim}                                                                                                 
+C-x v v                                                                                                          
+\end{verbatim}
+
+Mostra o log das revisões
+\begin{verbatim}                                                                                                
+C-x v l                                                                                                       
+\end{verbatim}
+
+Reverte um arquivo para a última revisão                                             
+\begin{verbatim}                                                                                                 
+C-x v u                                                                                                          
+\end{verbatim}
 
 \chapter{LaTeX}
 \label{cha:latex}
