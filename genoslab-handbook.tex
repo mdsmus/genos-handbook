@@ -786,7 +786,58 @@ ddrescue -d -r1 /dev/dvd DVD.iso DVD.log
 \chapter{Emacs}
 \label{cha:emacs}
 
-Emacs é o melhor editor de texto que eu já encontrei na vida.
+Emacs é o melhor editor de texto que eu já encontrei na vida. É um
+editor altamente customizável, capaz de reconhecer diversos formatos e
+fornecer ferramentas para lidar com diversas sintaxes. Possui inúmeros
+pacotes que o permitem funcionar como leitor de e-mails, navegador de
+internet, cliente de mensagem instantânea, gerenciador de arquivos,
+gerenciador de bibliografia, planilha eletrônica, calculadora
+científica, visualizador de imagens e psicoterapeuta (isso mesmo!).
+
+O site oficial é \url{http://www.gnu.org/software/emacs/}, e as
+ferramentas podem ser vistas em: \url{http://www.emacswiki.org/}
+
+\section{Instalação}
+\label{sec:instalacao-7}
+
+\subsection{Linux}
+\label{sec:linux}
+
+Há 3 formas de instalar o Emacs no Linux:
+
+\begin{enumerate}
+\item Usando um pacote disponível na distribuição
+\item Rodando um binário disponível pelo projeto
+\item Compilando a versão de desenvolvimento do repositório do projeto
+\end{enumerate}
+
+Na instalação através de um pacote usa-se, no Debian:
+
+\begin{verbatim}
+sudo apt-get update
+sudo apt-get install emacs
+\end{verbatim}
+
+E no ArchLinux:
+
+\begin{verbatim}
+pacman -Sy emacs
+\end{verbatim}
+
+Para instalar por um binário é preciso baixá-lo em
+\url{http://ftp.gnu.org/pub/gnu/emacs/}, descompactá-lo e instalá-lo.
+
+Para compilar a versão de desenvolvimento é preciso usar o
+cvs. Maiores instruções em:
+\url{http://savannah.gnu.org/cvs/?group=emacs}
+
+\subsection{Windows}
+\label{sec:windows}
+
+O Emacs é instalado no Windows através de um binário como
+\texttt{emacs-22.2-bin-i386.zip} disponível em:
+\url{http://ftp.gnu.org/pub/gnu/emacs/windows/}
+
 
 \section{Definir teclas}
 \label{sec:teclas}
@@ -897,7 +948,6 @@ Para entrar no modo editor, use \texttt{M-x
 \texttt{M-x image-dired} é uma versão do dired que mostra miniaturas
 das imagens em um diretório.
 
-
 \section{imenu}
 \label{sec:imenu}
 
@@ -916,6 +966,69 @@ No seu \texttt{.emacs} você pode colocar as linhas
 \end{verbatim}
 para habilitar o uso do \texttt{imenu} dentro do auctex, ativando-o
 com \texttt{C-M-g}.
+
+\section{Emacs-git}
+\label{sec:emacs-git}
+
+O \texttt{Emacs-Git} é um módulo para manipulação do controle de
+versão \texttt{git} através do \texttt{Emacs}.
+
+É possível baixar pelo repositório git:
+
+\begin{verbatim}
+git clone git://github.com/tsgates/git-emacs.git
+\end{verbatim}
+
+Para instalá-lo é necessário colocar estes arquivos no path do Emacs:
+
+\begin{verbatim}
+git-emacs.el
+git-modeline.el
+git-blame.el
+\end{verbatim}
+
+No \texttt{.emacs} é necessário colocar o caminho para estes arquivos
+e requisitar o \texttt{git-emacs}:
+\begin{verbatim}
+(add-to-list 'load-path "/home/tsgates/Skills/git/git-emacs-1.0")
+(require 'git-emacs)
+\end{verbatim}
+
+É possível usá-lo com M-x ou com teclas de atalho. Os comandos para o
+M-x começam com git (eg. \texttt{M-x git-status}), e os atalhos
+começam com C-x v (eg. \texttt{C-x v =} para git-status).
+
+\section{Version Control (vc)}
+\label{sec:vc}
+
+vc provê uma interface uniforme de controle de versão para o Emacs. Funciona
+com os principais controles de versão, tais como: git, svn e cvs. Para o
+git é necessário instalar o vc-git.
+
+Comando geral do vc, qualquer comando do vc inicia com essas teclas.
+\begin{verbatim}                                                   
+C-x v 
+\end{verbatim}
+
+Marca o arquivo para controle de versão
+\begin{verbatim}                                                                                                
+C-x v i                                                                                                
+\end{verbatim}
+
+Faz commit em um arquivo marcado para controle de versão
+\begin{verbatim}                                                                                                 
+C-x v v                                                                                                          
+\end{verbatim}
+
+Mostra o log das revisões
+\begin{verbatim}                                                                                                
+C-x v l                                                                                                       
+\end{verbatim}
+
+Reverte um arquivo para a última revisão                                             
+\begin{verbatim}                                                                                                 
+C-x v u                                                                                                          
+\end{verbatim}
 
 \chapter{LaTeX}
 \label{cha:latex}
