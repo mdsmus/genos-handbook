@@ -5,7 +5,6 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{html}
-\usepackage{subfigure}
 
 \newcommand{\sep}{$\rightarrow$}
 
@@ -1149,20 +1148,20 @@ Para essa tarefa é necessário ter instalado o Gimp
 \url{http://www.gimp.org/}. É possível também 
 
 No Gimp seleciona-se a opção do menu: Arquivo $>$ Capturar $>$ Captura
-de Tela ... (cf. figura \ref{fig:gimp})
+de Tela ... (cf. figura \ref{fig:janela-gimp})
 
 \begin{figure}[!h]
   \centering
-  \subfigure[Janela principal do Gimp]{
-    \includegraphics[scale=.7]{gimp-screen}
-    \label{fig:janela-gimp}
-  }
-  \subfigure[Janela de captura do Gimp]{
+  \includegraphics[scale=.7]{gimp-screen}
+  \caption{Janela principal do Gimp}
+  \label{fig:janela-gimp}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
     \includegraphics[scale=.7]{captura-gimp-screen}
+    \caption{Janela de captura do Gimp}
     \label{fig:captura-gimp}
-  }
-  \caption{Janelas do Gimp}
-  \label{fig:gimp}
 \end{figure}
 
 Aparecerá a janela da figura \ref{fig:captura-gimp}, na qual pode-se
