@@ -5,6 +5,7 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{html}
+\usepackage{subfigure}
 
 \newcommand{\sep}{$\rightarrow$}
 
@@ -1103,6 +1104,77 @@ para que o módulo seja carregado em cada inicialização:
 \begin{verbatim}
 vboxdrv
 \end{verbatim}
+
+\chapter{Capturar screenshots}
+\label{cha:capt-scre}
+
+É possível capturar o screenshots no Linux via linha de comando ou
+software gráfico.
+
+\section{Screenshots via linha de comando}
+\label{sec:scre-via-linha}
+
+Utiliza-se o Image Magick \url{http://www.imagemagick.org} para
+capturar screenshots via linha de comando. É possível capturar a tela
+inteira ou apenas a janela de um aplicativo.
+
+Para capturar a tela inteira utiliza-se o comando:
+
+\begin{verbatim}
+import -delay 50 -root foo.png
+\end{verbatim}
+
+Utiliza-se a opção delay para dar um tempo de arrumar a tela.
+
+Para capturar a tela inteira utiliza-se o comando:
+
+\begin{verbatim}
+import -delay 50 -frame foo.png
+\end{verbatim}
+
+Utiliza-se a opção delay para dar um tempo para clicar na figura e
+torná-la ativa. Para maiores informações consultar
+\url{file:///usr/share/doc/imagemagick/www/import.html}
+
+\section{Screenshots via softwares gráficos}
+\label{sec:scre-via-softw}
+
+É possível fazer screenshots com o software Gimp ou usando a tecla
+printscreen.
+
+\subsection{Screenshot via Gimp}
+\label{sec:screenshot-via-gimp}
+
+Para essa tarefa é necessário ter instalado o Gimp
+\url{http://www.gimp.org/}. É possível também 
+
+No Gimp seleciona-se a opção do menu: Arquivo $>$ Capturar $>$ Captura
+de Tela ... (cf. figura \ref{fig:gimp})
+
+\begin{figure}[!h]
+  \centering
+  \subfigure[Janela principal do Gimp]{
+    \includegraphics[scale=.7]{gimp-screen}
+    \label{fig:janela-gimp}
+  }
+  \subfigure[Janela de captura do Gimp]{
+    \includegraphics[scale=.7]{captura-gimp-screen}
+    \label{fig:captura-gimp}
+  }
+  \caption{Janelas do Gimp}
+  \label{fig:gimp}
+\end{figure}
+
+Aparecerá a janela da figura \ref{fig:captura-gimp}, na qual pode-se
+escolher capturar uma janela ou toda a tela e determinar um tempo de
+espera para arrumação.
+
+\subsection{Screenshot via PrintScreen}
+\label{sec:scre-via-printscr}
+
+No gerenciador de janelas (window manager) Gnome
+\url{http://www.gnome.org/} o uso da tecla printscreen captura toda a
+tela.
 
 \part{Programas de áudio}
 \label{part:programas-de-audio}
