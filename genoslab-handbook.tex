@@ -629,7 +629,58 @@ ddrescue -d -r1 /dev/dvd DVD.iso DVD.log
 \chapter{Emacs}
 \label{cha:emacs}
 
-Emacs é o melhor editor de texto que eu já encontrei na vida.
+Emacs é o melhor editor de texto que eu já encontrei na vida. É um
+editor altamente customizável, capaz de reconhecer diversos formatos e
+fornecer ferramentas para lidar com diversas sintaxes. Possui inúmeros
+pacotes que o permitem funcionar como leitor de e-mails, navegador de
+internet, cliente de mensagem instantânea, gerenciador de arquivos,
+gerenciador de bibliografia, planilha eletrônica, calculadora
+científica, visualizador de imagens e psicoterapeuta (isso mesmo!).
+
+O site oficial é \url{http://www.gnu.org/software/emacs/}, e as
+ferramentas podem ser vistas em: \url{http://www.emacswiki.org/}
+
+\section{Instalação}
+\label{sec:instalacao-7}
+
+\subsection{Linux}
+\label{sec:linux}
+
+Há 3 formas de instalar o Emacs no Linux:
+
+\begin{enumerate}
+\item Usando um pacote disponível na distribuição
+\item Rodando um binário disponível pelo projeto
+\item Compilando a versão de desenvolvimento do repositório do projeto
+\end{enumerate}
+
+Na instalação através de um pacote usa-se, no Debian:
+
+\begin{verbatim}
+sudo apt-get update
+sudo apt-get install emacs
+\end{verbatim}
+
+E no ArchLinux:
+
+\begin{verbatim}
+pacman -Sy emacs
+\end{verbatim}
+
+Para instalar por um binário é preciso baixá-lo em
+\url{http://ftp.gnu.org/pub/gnu/emacs/}, descompactá-lo e instalá-lo.
+
+Para compilar a versão de desenvolvimento é preciso usar o
+cvs. Maiores instruções em:
+\url{http://savannah.gnu.org/cvs/?group=emacs}
+
+\subsection{Windows}
+\label{sec:windows}
+
+O Emacs é instalado no Windows através de um binário como
+\texttt{emacs-22.2-bin-i386.zip} disponível em:
+\url{http://ftp.gnu.org/pub/gnu/emacs/windows/}
+
 
 \section{Definir teclas}
 \label{sec:teclas}
@@ -740,7 +791,6 @@ Para entrar no modo editor, use \texttt{M-x
 \texttt{M-x image-dired} é uma versão do dired que mostra miniaturas
 das imagens em um diretório.
 
-
 \section{imenu}
 \label{sec:imenu}
 
@@ -759,6 +809,69 @@ No seu \texttt{.emacs} você pode colocar as linhas
 \end{verbatim}
 para habilitar o uso do \texttt{imenu} dentro do auctex, ativando-o
 com \texttt{C-M-g}.
+
+\section{Emacs-git}
+\label{sec:emacs-git}
+
+O \texttt{Emacs-Git} é um módulo para manipulação do controle de
+versão \texttt{git} através do \texttt{Emacs}.
+
+É possível baixar pelo repositório git:
+
+\begin{verbatim}
+git clone git://github.com/tsgates/git-emacs.git
+\end{verbatim}
+
+Para instalá-lo é necessário colocar estes arquivos no path do Emacs:
+
+\begin{verbatim}
+git-emacs.el
+git-modeline.el
+git-blame.el
+\end{verbatim}
+
+No \texttt{.emacs} é necessário colocar o caminho para estes arquivos
+e requisitar o \texttt{git-emacs}:
+\begin{verbatim}
+(add-to-list 'load-path "/home/tsgates/Skills/git/git-emacs-1.0")
+(require 'git-emacs)
+\end{verbatim}
+
+É possível usá-lo com M-x ou com teclas de atalho. Os comandos para o
+M-x começam com git (eg. \texttt{M-x git-status}), e os atalhos
+começam com C-x v (eg. \texttt{C-x v =} para git-status).
+
+\section{Version Control (vc)}
+\label{sec:vc}
+
+vc provê uma interface uniforme de controle de versão para o Emacs. Funciona
+com os principais controles de versão, tais como: git, svn e cvs. Para o
+git é necessário instalar o vc-git.
+
+Comando geral do vc, qualquer comando do vc inicia com essas teclas.
+\begin{verbatim}                                                   
+C-x v 
+\end{verbatim}
+
+Marca o arquivo para controle de versão
+\begin{verbatim}                                                                                                
+C-x v i                                                                                                
+\end{verbatim}
+
+Faz commit em um arquivo marcado para controle de versão
+\begin{verbatim}                                                                                                 
+C-x v v                                                                                                          
+\end{verbatim}
+
+Mostra o log das revisões
+\begin{verbatim}                                                                                                
+C-x v l                                                                                                       
+\end{verbatim}
+
+Reverte um arquivo para a última revisão                                             
+\begin{verbatim}                                                                                                 
+C-x v u                                                                                                          
+\end{verbatim}
 
 \chapter{LaTeX}
 \label{cha:latex}
@@ -990,6 +1103,77 @@ para que o módulo seja carregado em cada inicialização:
 \begin{verbatim}
 vboxdrv
 \end{verbatim}
+
+\chapter{Capturar screenshots}
+\label{cha:capt-scre}
+
+É possível capturar o screenshots no Linux via linha de comando ou
+software gráfico.
+
+\section{Screenshots via linha de comando}
+\label{sec:scre-via-linha}
+
+Utiliza-se o Image Magick \url{http://www.imagemagick.org} para
+capturar screenshots via linha de comando. É possível capturar a tela
+inteira ou apenas a janela de um aplicativo.
+
+Para capturar a tela inteira utiliza-se o comando:
+
+\begin{verbatim}
+import -delay 50 -root foo.png
+\end{verbatim}
+
+Utiliza-se a opção delay para dar um tempo de arrumar a tela.
+
+Para capturar a tela inteira utiliza-se o comando:
+
+\begin{verbatim}
+import -delay 50 -frame foo.png
+\end{verbatim}
+
+Utiliza-se a opção delay para dar um tempo para clicar na figura e
+torná-la ativa. Para maiores informações consultar
+\url{file:///usr/share/doc/imagemagick/www/import.html}
+
+\section{Screenshots via softwares gráficos}
+\label{sec:scre-via-softw}
+
+É possível fazer screenshots com o software Gimp ou usando a tecla
+printscreen.
+
+\subsection{Screenshot via Gimp}
+\label{sec:screenshot-via-gimp}
+
+Para essa tarefa é necessário ter instalado o Gimp
+\url{http://www.gimp.org/}. É possível também 
+
+No Gimp seleciona-se a opção do menu: Arquivo $>$ Capturar $>$ Captura
+de Tela ... (cf. figura \ref{fig:janela-gimp})
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[scale=.7]{gimp-screen}
+  \caption{Janela principal do Gimp}
+  \label{fig:janela-gimp}
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+    \includegraphics[scale=.7]{captura-gimp-screen}
+    \caption{Janela de captura do Gimp}
+    \label{fig:captura-gimp}
+\end{figure}
+
+Aparecerá a janela da figura \ref{fig:captura-gimp}, na qual pode-se
+escolher capturar uma janela ou toda a tela e determinar um tempo de
+espera para arrumação.
+
+\subsection{Screenshot via PrintScreen}
+\label{sec:scre-via-printscr}
+
+No gerenciador de janelas (window manager) Gnome
+\url{http://www.gnome.org/} o uso da tecla printscreen captura toda a
+tela.
 
 \part{Programas de áudio}
 \label{part:programas-de-audio}
@@ -1794,5 +1978,137 @@ em anexo na mensagem em um diretório que contenha os arquivos
 \begin{verbatim}
 (add-to-list 'load-path "caminho-para-diretório-com-arquivos-.el")
 \end{verbatim}
+
+\part{Guia para membros do Genos}
+\label{part:guia-para-membros}
+
+\section{Pesquisas do Genos}
+\label{sec:pesquisas-do-genos}
+
+A equipe multidisciplinar do Genos é formada por pesquisadores e
+estudantes de graduação e pós-graduação da área de Música e Ciência da
+Computação de diferentes instituições do Brasil. Diferentes pesquisas
+são realizadas simultaneamente junto ao grupo. O líder do grupo
+encabeça a principal pesquisa
+(cf. \url{http://wiki.genos.mus.br/PesquisaGenos}), que demanda o
+maior número de pessoas.
+
+\section{Comunicação}
+\label{sec:comunicacao}
+
+A comunicação entre os membros do Genos é feita através de duas listas
+de discussão. A lista genos-users ---
+\url{http://lists.genos.mus.br/cgi-bin/mailman/listinfo/genos-users}
+--- é utilizada para todas as questões referentes ao uso do
+laboratório, uso de ferramentas, e outros assuntos pertinentes ao
+Genos. A lista genos-pesquisa ---
+\url{http://lists.genos.mus.br/cgi-bin/mailman/listinfo/genos-pesquisa}
+--- é utilizada para questões referentes à pesquisa principal do
+Genos, como decisões no desenvolvimento, dúvidas de funcionamento do
+programa desenvolvido, e marcação de horários de reuniões.
+
+\subsection{Tarefas dos membros do Genos}
+\label{sec:tarefas-dos-membros}
+
+A comunicação das tarefas de cada membro do Genos é feita com o
+\textit{bug trac}, um sistema online de gerenciamento de tarefas onde
+todas as tarefas dos membros dos Genos são postadas. Através deste
+sistema é possível acompanhar o andamento dos projetos do grupo a
+partir das tarefas de cada membro. Para ver este sistema veja o link
+\url{http://genos.mus.br/bugs}.
+
+\subsection{Reuniões}
+\label{sec:reunioes}
+
+Os membros do Genos se reunem para:
+
+\begin{enumerate}
+\item Discutir a pesquisa principal
+
+  As reuniões para a pesquisa principal são semanais e têm o horário
+  combinado a cada semestre. Para o semestre 2008.1 o horário oficial
+  é sexta-feira, às 13 horas no GenosLab. Entretanto sempre é possível
+  haver reuniões em outros horários e locais (como o Instituto de
+  Matemática da UFBA).
+
+\item Avaliar e planejar atividades
+
+  As reuniões para planejamento e avaliação de atividades são
+  combinadas entre os integrantes no final e início do semestre
+  letivo, no GenosLab.
+
+\end{enumerate}
+
+\section{Uso do GenosLab}
+\label{sec:uso-do-genoslab}
+
+O laboratório GenosLab é administrado inteiramente pelo Genos. O seu
+uso é restrito aos membros do grupo que estão desenvolvendo
+pesquisa. Cada um desses membros tem direito a uma cota de uso do
+laboratório. Os horários desta cota são acertados a cada semestre em
+reunião geral do grupo, e pode ser negociado com prévio aviso na lista
+genos-users.
+
+O Genos tem três modalidades de uso normal:
+\begin{enumerate}
+\item Para gravação (uso exclusivo e individual de um membro)
+\item Para mixagem com som externo (uso compartilhado)
+\item Para uso comum com uso obrigatório de headphones (uso
+  compartilhado)
+\end{enumerate}
+
+Na modalidade ``comum'' é possível haver reunião e orientação no
+laboratório.
+
+A prioridade dos horários do GenosLab é dedicada aos cursos do Genos.
+
+\subsection{Equipamento}
+\label{sec:equipamento}
+
+O equipamento não poderá sair do laboratório. \textbf{Apenas o
+  coordenador do laboratório poderá emprestar equipamento}, ainda
+assim documentando através da lista de discussão.
+
+\section{Trabalho na pesquisa principal do Genos}
+\label{sec:trabalho-na-pesquisa}
+
+Para trabalhar na pesquisa principal do Genos é necessário garantir a
+comunicação com o grupo, habituar-se às ferramentas utilizadas, e
+executar prontamente as tarefas.
+
+\subsection{Ferramentas utilizadas na pesquisa principal}
+\label{sec:ferr-util-na}
+
+As principais ferramentas utilizadas na pesquisa principal do Genos
+são:
+
+\begin{enumerate}
+\item Emacs (cf. capítulo \ref{cha:emacs}),
+\item Git (cf. capítulo \ref{cha:git}),
+\item \LaTeX (cf. capítulo \ref{cha:latex}), e
+\item Lilypond (cf. seção \ref{sec:lilypond}),
+\end{enumerate}
+
+Não é obrigatório o uso do Linux, embora seja altamente encorajado.
+
+\subsection{Passo-a-passo de um novato no Genos}
+\label{sec:passo-passo-de}
+
+Os passos para um novato nas pesquisas do Genos são:
+
+\begin{enumerate}
+\item Associar-se às duas listas de discussão (cf. seção
+  \ref{sec:comunicacao}):
+  \begin{enumerate}
+  \item \url{http://lists.genos.mus.br/cgi-bin/mailman/listinfo/genos-users}
+  \item \url{http://lists.genos.mus.br/cgi-bin/mailman/listinfo/genos-pesquisa}
+  \end{enumerate}
+\item Inscrever-se no \textit{bugtrac}: \url{http://genos.mus.br/bugs}
+  (cf. seção \ref{sec:tarefas-dos-membros}).
+\item Instalar as ferramentas utilizadas (cf. seção
+  \ref{sec:ferr-util-na}).
+\item Ler os artigos referentes à pesquisa.
+\item Aprender a executar as tarefas necessárias à pesquisa.
+\end{enumerate}
 
 \end{document}
