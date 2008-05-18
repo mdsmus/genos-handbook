@@ -267,7 +267,9 @@ pergunta não precisa se preocupar, o valor padrão deve ser o
 suficiente. Quando ele pedir uma passphrase, certifique-se que você
 não vai esquecê-la! A chave pública vai ser geradad no arquivo
 \texttt{~/.ssh/id\_rsa.pub}. Para ter acesso de escrita nos
-repositórios do genos envie o arquivo para Pedro Kroger.
+repositórios do genos envie o arquivo para Pedro Kroger. Para saber
+mais sobre geração de chaves, veja
+\url{http://kimmo.suominen.com/docs/ssh/}.
 
 Se você enviou a chave pública e seu acesso foi liberado, você pode
 baixar um projeto no repositório do genos com o comando abaixo:
@@ -2313,6 +2315,120 @@ Os passos para um novato nas pesquisas do Genos são:
   \ref{sec:ferr-util-na}).
 \item Ler os artigos referentes à pesquisa.
 \item Aprender a executar as tarefas necessárias à pesquisa.
+\end{enumerate}
+
+\subsection{Tarefas principais da pesquisa de análise harmônica automática}
+\label{sec:taref-princ-da}
+
+O Genos está desenvolvendo em sua pesquisa principal o
+Rameau\footnote{\url{http://wiki.genos.mus.br/Rameau}}, um software
+para análise harmônica automática. Para um maior entendimento da
+pesquisa vide
+\url{http://wiki.genos.mus.br/AnaliseHarmonicaAutomatica}.
+
+As principais tarefas desta pesquisa para músicos são a criação de
+gabaritos e a correção de partituras.
+
+\subsubsection{Criação de gabaritos}
+\label{sec:criacao-de-gabaritos}
+
+Uma das funcionalidades do Rameau é a comparação da análise de
+algoritmos com análises feitas por humanos. Uma das tarefas para
+músicas é a criação de gabaritos com as análises das peças para
+possibilitar esta comparação.
+
+Durante a atual fase da pesquisa os gabaritos criados armazenam apenas
+os tipos de acordes, e não a função harmônica. A música é dividida em
+segmentos, de forma que a cada mudança de nota (esta mudança pode
+acontecer em qualquer voz), temos um novo segmento. O gabarito do
+fragmento da figura \ref{fig:choral-rameau} é escrito desta forma
+(cf. answer):
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.8]{analysis-001}
+  \caption{Coral analisado com o Rameau}
+  \label{fig:choral-rameau}
+\end{figure}
+
+\begin{verbatim}
+g
+g c/e [b] d/f#
+g bm/d bm7/d em
+c [b d] [b] f#°/a g
+d g
+\end{verbatim}
+
+\paragraph{Formato de gabarito}
+\label{sec:formato-de-gabarito}
+
+As peças são cifradas em um formato .gab de acordo com o seguinte:
+
+\begin{enumerate}
+\item Cada segmento é identificado com uma cifra
+\item Acordes são identificados com cifra comercial/popular:
+  \begin{enumerate}
+  \item Tríade maior é o padrão. Não precisa de complemento:
+    \texttt{c}, \texttt{g};
+  \item Tríade menor é indicada com $m$ após a tônica: \texttt{cm},
+    \texttt{gm};
+  \item Tríade diminuta leva $°$: \texttt{c°}, \texttt{d°};
+  \item Tríade aumentada leva $+$: \texttt{c+}, \texttt{e+};
+  \item Tétrades: todas levam obrigatoriamente um 7. A sétima pode ser:
+    \begin{enumerate}
+    \item menor: \texttt{c7},
+    \item maior: \texttt{c7+},
+    \item diminuta: \texttt{c°7-}.
+    \end{enumerate}
+  \end{enumerate}
+\item Acidentes
+  são $\#$ ou $b$,
+\item Inversões são marcadas como \texttt{c/e},
+\item Notas melódicas são identificadas com colchetes: \texttt{[d]},
+  \texttt{[d f]} (duas notas melódicas simultâneas).
+\item Cada linha do arquivo .gab deve conter apenas um compasso de
+  cifras.
+\end{enumerate}
+
+\paragraph{Padrão de análise para gabaritos}
+\label{sec:padrao-de-analise}
+
+O Genos estabeleceu um padrão de análise para as cifras das
+peças. Todos os gabaritos devem ser feitos de acordo com este
+padrão. Exemplos podem ser vistos nos corais já analisados e
+corrigidos (1 ao 25).
+
+\begin{enumerate}
+\item Acordes relativos em colcheias, em geral, são marcados como nota
+  melódica.
+\item Acordes que possuem acidentes, em geral, são entendidos a partir
+  de alguma função secundária e são cifrados.
+\item Um acorde de sétima deve ter esta nota resolvida
+  descendentemente e por grau conjunto.
+\item Um acorde de sétima que não seja de dominante deve ter sua
+  sétima preparada pela mesma nota no acorde anterior.
+\item Acordes aumentados ou de sexta aumentada não podem ser
+  confundidos com segmentos com notas melódicas.
+\end{enumerate}
+
+\subsubsection{Correção de partituras}
+\label{sec:corr-de-part}
+
+As partituras utilizadas pela pesquisa são, em geral, convertidas de
+um arquivo MIDI disponível livremente na internet, como por exemplo em
+\url{http://www.jsbchorales.net/}, em um arquivo Lilypond (cf. seção
+\ref{sec:lilypond}). Entretanto, o resultado desta conversão pode
+conter erros, principalmente porque o MIDI não armazena informações
+enarmônicas. Por isso uma das tarefas dos músicos é conferir se o
+arquivo convertido é equivalente à edição da partitura.
+
+Para o corpus dos 371 corais da edição Riemenschneider há duas
+maneiras de corrigir as partituras:
+\begin{enumerate}
+\item Comparando visualmente todas as notas da partitura gerada pelo
+  Rameau com a edição Riemenschneider; ou
+\item Ouvindo os nomes das notas geradas pelo Rameau e comparando com
+  a edição Riemenschneider.
 \end{enumerate}
 
 \end{document}
