@@ -2156,10 +2156,13 @@ d g
 \paragraph{Formato de gabarito}
 \label{sec:formato-de-gabarito}
 
-As peças são cifradas em um formato .gab de acordo com o seguinte:
+As peças são cifradas em um formato .pop de acordo com o seguinte:
 
 \begin{enumerate}
 \item Cada segmento é identificado com uma cifra
+\item A duração de cada segmento é ignorada
+\item Cada linha do arquivo .pop deve conter apenas um compasso de
+  cifras.
 \item Acordes são identificados com cifra comercial/popular:
   \begin{enumerate}
   \item Tríade maior é o padrão. Não precisa de complemento:
@@ -2168,21 +2171,42 @@ As peças são cifradas em um formato .gab de acordo com o seguinte:
     \texttt{gm};
   \item Tríade diminuta leva $°$: \texttt{c°}, \texttt{d°};
   \item Tríade aumentada leva $+$: \texttt{c+}, \texttt{e+};
-  \item Tétrades: todas levam obrigatoriamente um 7. A sétima pode ser:
+  \item Tétrades: todas levam obrigatoriamente um 7:
     \begin{enumerate}
-    \item menor: \texttt{c7},
-    \item maior: \texttt{c7+},
-    \item diminuta: \texttt{c°7-}.
+    \item menor com sétima: \texttt{cm7},
+    \item menor com sétima maior: \texttt{cm7+},
+    \item maior com sétima maior: \texttt{c7+},
+    \item maior com sétima menor: \texttt{c7},
+    \item diminuta: \texttt{c°7},
+    \item semidiminuta: \texttt{cø7} (este caractere em geral fica nas
+      teclas ``alt gr'' o),
+    \item aumentada com sétima menor: \texttt{c+7}.
+    \item aumentada com sétima maior: \texttt{c+7+}.
     \end{enumerate}
   \end{enumerate}
-\item Acidentes
-  são $\#$ ou $b$,
-\item Inversões são marcadas como \texttt{c/e},
+  \item Acidentes são $\#$ ou $b$: \texttt{c\#}, \texttt{bb}.
+  \item Inversões são marcadas como \texttt{c/e}. Um arpejo no baixo
+    teria uma cifra como \texttt{c c/e c/g c}.
 \item Notas melódicas são identificadas com colchetes: \texttt{[d]},
   \texttt{[d f]} (duas notas melódicas simultâneas).
-\item Cada linha do arquivo .gab deve conter apenas um compasso de
-  cifras.
+\item Acordes sem terça são identificados com ``$!$'': \texttt{c dm g7
+    d g7 c d!  g7 c}. Os acordes que têm a terça subentendida pelo
+  contexto não devem levar ``$!$''. Em um trecho em dó maior, por
+  exemplo, se um acorde de sol sem terça está subentendido. No
+  entanto, se ora esse acorde aparece maior, ora menor, pode não ser
+  possível ter certeza. Então cifra-se \texttt{g!}.
+\item Em caso de repetição de acordes em segmentos diferentes
+  repete-se a cifra. Por exemplo: \texttt{c c dm g c c c c}.
+\item Ritornelos são indicados com chaves. Por exemplo, \texttt{\{ c
+    dm g c \}}.
+\item Ambigüidades são indicadas em cada segmento com parênteses. Por
+  exemplo: \texttt{c ([a] am) g}
+\item Em caso de cruzamento de vozes entre baixo e tenor, considera-se
+  o tenor para definir a inversão do acorde.
 \end{enumerate}
+
+Um exemplo de gabarito pode ser visto em
+\url{http://git.genos.mus.br/?p=rameau.git;a=blob;f=answer-sheets/chorales-bach/001.pop;h=1427035b706659afd0319e3dc7bccb0df1772283;hb=HEAD}
 
 \paragraph{Padrão de análise para gabaritos}
 \label{sec:padrao-de-analise}
