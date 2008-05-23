@@ -8,6 +8,7 @@
 
 
 \newcommand{\sep}{$\rightarrow$}
+\newcommand{\eng}[1]{\textit{#1}}
 
 \title{Genoslab Handbook}
 \author{Pedro Kröger, Marcos di Silva e Alexandre Passos}
@@ -263,6 +264,9 @@ laboratório.
 
 A prioridade dos horários do GenosLab é dedicada aos cursos do Genos.
 
+Os horários de uso ficam disponíveis em
+\url{http://wiki.genos.mus.br/HorariosGenoslab}
+
 \subsection{Equipamento}
 \label{sec:equipamento}
 
@@ -337,9 +341,10 @@ possibilitar esta comparação.
 Durante a atual fase da pesquisa os gabaritos criados armazenam apenas
 os tipos de acordes, e não a função harmônica. A música é dividida em
 segmentos, de forma que a cada mudança de nota (esta mudança pode
-acontecer em qualquer voz), temos um novo segmento. O gabarito do
-fragmento da figura \ref{fig:choral-rameau} é escrito desta forma
-(vide answer):
+acontecer em qualquer voz), temos um novo segmento. A figura
+\ref{fig:choral-rameau} traz um fragmento de coral analisado pelos
+algoritmos (ES tree, EC Knn, etc). O gabarito deste fragmento é
+escrito desta forma (vide a linha \eng{Answer}).
 
 \begin{figure}
   \centering
@@ -362,10 +367,12 @@ d g
 As peças são cifradas em um formato .pop de acordo com o seguinte:
 
 \begin{enumerate}
-\item Cada segmento é identificado com uma cifra
-\item A duração de cada segmento é ignorada
+\item Cada segmento é identificado com uma cifra.
+\item A duração de cada segmento é ignorada.
 \item Cada linha do arquivo .pop deve conter apenas um compasso de
   cifras.
+\item O espaçamento entre duas cifras é de um espaço.
+\item Pausas são ignoradas e não são indicadas no gabarito.
 \item Acordes são identificados com cifra comercial/popular:
   \begin{enumerate}
   \item Tríade maior é o padrão. Não precisa de complemento:
@@ -374,7 +381,7 @@ As peças são cifradas em um formato .pop de acordo com o seguinte:
     \texttt{gm};
   \item Tríade diminuta leva $°$: \texttt{c°}, \texttt{d°};
   \item Tríade aumentada leva $+$: \texttt{c+}, \texttt{e+};
-  \item Tétrades: todas levam obrigatoriamente um 7:
+  \item Tétrades: todas levam obrigatoriamente um 7 no final:
     \begin{enumerate}
     \item menor com sétima: \texttt{cm7},
     \item menor com sétima maior: \texttt{cm7+},
@@ -392,9 +399,9 @@ As peças são cifradas em um formato .pop de acordo com o seguinte:
     teria uma cifra como \texttt{c c/e c/g c}.
 \item Notas melódicas são identificadas com colchetes: \texttt{[d]},
   \texttt{[d f]} (duas notas melódicas simultâneas).
-\item Acordes sem terça são identificados com ``$!$'': \texttt{c dm g7
+\item Acordes sem terça são identificados com ``!'': \texttt{c dm g7
     d g7 c d!  g7 c}. Os acordes que têm a terça subentendida pelo
-  contexto não devem levar ``$!$''. Em um trecho em dó maior, por
+  contexto não devem levar ``!''. Em um trecho em dó maior, por
   exemplo, se um acorde de sol sem terça está subentendido. No
   entanto, se ora esse acorde aparece maior, ora menor, pode não ser
   possível ter certeza. Então cifra-se \texttt{g!}.
@@ -403,7 +410,7 @@ As peças são cifradas em um formato .pop de acordo com o seguinte:
 \item Ritornelos são indicados com chaves. Por exemplo, \texttt{\{ c
     dm g c \}}.
 \item Ambigüidades são indicadas em cada segmento com parênteses. Por
-  exemplo: \texttt{c ([a] am) g}
+  exemplo: \texttt{c ([a] am) g}.
 \item Em caso de cruzamento de vozes entre baixo e tenor, considera-se
   o tenor para definir a inversão do acorde.
 \end{enumerate}
