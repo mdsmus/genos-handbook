@@ -1649,6 +1649,278 @@ tellico-data - collection manager for books, videos, music [data]
 % function find-duplicate-key from the same library finds the next
 % instance of duplicate adjacent field names in a single BIBTEX entry.
 
+\chapter{Lilypond}
+\label{sec:lilypond}
+
+Lilypond é um software livre para criar partituras musicais para
+impressão compatível com plataformas Linux, Windows e Mac. O Lilypond
+interpreta comandos escritos em um formato próprio, .ly, e gera
+arquivos .ps e .pdf. É possível também gerar arquivos .midi, .png,
+.svg, .dvi e .tex. O portal do software é bastante completo:
+(\url{lilypond.org}). Há um tutorial em português
+(\url{http://erasmo.info/lilypond/tutorial/}) e uma lista de discussão
+brasileira (\url{http://groups.google.com.br/group/lilypond-brasil}).
+
+
+\section{Código básico para diversas necessidades}
+\label{sec:codigo-basico-para}
+
+\subsection{O mínimo para gerar arquivo midi}
+\label{sec:o-minimo-para}
+
+O código abaixo tem uma estrutura mínima para gerar um arquivo .midi,
+além do .ps e .pdf.
+
+\begin{verbatim}
+\version "2.10.0"
+
+\score {
+  \new Staff {
+    \relative c'' {
+      %% escreva aqui suas notas
+    }
+  }
+  \layout { }
+  \midi { }
+}
+\end{verbatim}
+
+O comando \texttt{version} define a versão do Lilypond à qual os
+comandos estão relacionados. O comando \texttt{relative} define uma
+oitava relativa para a música. No exemplo acima, dó 4.
+
+\subsection{Abstração de comandos em variáveis}
+\label{sec:abstr-de-comand}
+
+É muito útil usar variáveis para abstrair código.
+
+Um código como este:
+
+\begin{verbatim}
+\relative c' {
+  c4 d e f
+  <c e g>4 <g b d> <c e g> <f a c>
+}
+\end{verbatim}
+
+Pode ser escrito desta forma:
+
+\begin{verbatim}
+motivoa = {
+  c4 d e f
+}
+
+motivob = {
+  <c e g>4 <g b d> <c e g> <f a c>
+}
+
+\relative c' {
+  \motivoa
+  \motivob
+}
+\end{verbatim}
+
+\subsection{Usando variáveis em partituras com vários instrumentos}
+\label{sec:usando-variaveis-em}
+
+Para escrever para vários instrumentos é interessante abstrair o
+material de cada instrumento em uma variável e, opcionalmente, colocar
+essas variáveis em arquivos diferentes. No exemplo abaixo o material
+dos instrumentos foram abstraídos nas variáveis viola e
+violoncelo. Então inserimos \texttt{viola} e \texttt{violoncelo} em
+partitura.ly e definimos essas variáveis nos arquivos viola.ly e
+violoncelo.ly
+
+Uma partitura com dois instrumentos e variáveis definidas em um único
+arquivo pode ser feita assim:
+
+Arquivo tudo-em-um.ly:
+
+\begin{verbatim}
+%% variável global. aqui inserimos elementos que deverão aparecer em
+%% todos os instrumentos.
+global = {
+  \time 3/4
+  \key c \minor
+  \tempo 4=80
+  s1*3/4*2
+  \bar "||"
+  \tempo 8=60
+  s1*3/4
+  \bar "|."
+}
+
+%% definição da variável viola, com o material musical deste
+%% instrumento.
+viola = {
+  \relative c {
+    \clef alto
+    c\ppp\< d ees
+    f\fff g aes
+    c d ees
+  }
+}
+
+%% definição da variável violoncelo, com o material musical deste
+%% instrumento.
+violoncelo = {
+  \relative c {
+    \clef bass
+    cis\ppp\< dis cis
+    c\fff d c
+    cis dis cis
+  }
+}
+
+%% partitura
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \set Staff.instrumentName = "Viola "
+      \set Staff.midiInstrument = "viola"
+      \global
+      \viola
+    >>
+    \new Staff <<
+      \set Staff.instrumentName = "Violoncelo "
+      \set Staff.midiInstrument = "cello"
+      \global
+      \violoncelo
+    >>
+  >>
+  %% outras configurações gerais (layout, midi, page)
+  \layout { }
+  \midi { }
+}
+\end{verbatim}
+
+Quando a música é grande é interessante colocar as variáveis com
+material dos instrumentos em arquivos diferentes:
+
+Arquivo partitura.ly:
+
+\begin{verbatim}
+%% inclusão de arquivos. Aqui carregamos os arquivos necessários para
+%% gerar a partitura.
+\include "viola.ly"
+\include "violoncelo.ly"
+
+%% variável global. aqui inserimos elementos que deverão aparecer em
+%% todos os instrumentos.
+global = {
+  \time 3/4
+  \key c \minor
+  \tempo 4=80
+  s1*3/4*2
+  \bar "||"
+  \tempo 8=60
+  s1*3/4
+  \bar "|."
+}
+
+%% partitura
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \set Staff.instrumentName = "Viola "
+      \set Staff.midiInstrument = "viola"
+      \global
+      \viola
+    >>
+    \new Staff <<
+      \set Staff.instrumentName = "Violoncelo "
+      \set Staff.midiInstrument = "cello"
+      \global
+      \violoncelo
+    >>
+  >>
+  %% outras configurações gerais (layout, midi, page)
+  \layout { }
+  \midi { }
+}
+
+\end{verbatim}
+
+Arquivo viola.ly:
+
+\begin{verbatim}
+%% definição da variável viola, com o material musical deste
+%% instrumento.
+viola = {
+  \relative c {
+    \clef alto
+    c\ppp\< d ees
+    f\fff g aes
+    c d ees
+  }
+}
+\end{verbatim}
+
+Arquivo violoncelo.ly:
+
+\begin{verbatim}
+%% definição da variável violoncelo, com o material musical deste instrumento.
+violoncelo = {
+  \relative c {
+    \clef bass
+    cis\ppp\< dis cis
+    c\fff d c
+    cis dis cis
+  }
+}
+\end{verbatim}
+
+\section{O modo para Emacs}
+\label{sec:o-modo-para-3}
+
+O editor Emacs tem um modo para Lilypond que fornece, indentação,
+coloração da sintaxe, atalhos e manuais.
+
+Para instalar o Lilypond-mode é preciso colocar no \texttt{~/.emacs} o
+caminho para lilypond-init.el as linhas abaixo:
+
+\begin{verbatim}
+(autoload 'LilyPond-mode "lilypond-mode" nil t)
+(setq auto-mode-alist (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
+(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
+\end{verbatim}
+
+\subsection{Criando templates para Lilypond no Emacs}
+\label{sec:criando-templ-para}
+
+O Emacs permite a criação de templates. Abaixo há um exemplo para
+criação de um código \texttt{.ly} simples.
+
+\begin{verbatim}
+(define-skeleton lilypond-simples
+  "Insere um template para lilypond simples."
+  nil
+  "\\version \"2.10.0\"\n"
+  "\\score {\n"
+  "  \\new Staff {\n"
+  "    \\relative c' {\n"
+  "      "_ "\n"
+  "    }\n"
+  "  }\n"
+  "  \\layout { }\n"
+  "  \\midi { }\n"
+  "}\n")
+\end{verbatim}
+
+Um conjunto de templates está sendo criado por Shelagh Manton. Em
+mensagem para a lista de desenvolvedores do Lilypond ele
+disponibilizou estes templates:
+\url{http://lists.gnu.org/archive/html/lilypond-devel/2008-04/msg00116.html}.
+
+Para os templates funcionarem é preciso salvar o arquivo do template
+em anexo na mensagem em um diretório que contenha os arquivos
+\texttt{.el}. Depois é só garantir que este diretório é carregado no
+\texttt{~/.emacs} com uma linha como essa:
+
+\begin{verbatim}
+(add-to-list 'load-path "caminho-para-diretório-com-arquivos-.el")
+\end{verbatim}
+
 \chapter{VirtualBox}
 \label{cha:virtualbox}
 
@@ -2332,277 +2604,5 @@ fazer isso no Debian.
 
 \part{Outros programas}
 \label{part:outros-programas}
-
-\chapter{Lilypond}
-\label{sec:lilypond}
-
-Lilypond é um software livre para criar partituras musicais para
-impressão compatível com plataformas Linux, Windows e Mac. O Lilypond
-interpreta comandos escritos em um formato próprio, .ly, e gera
-arquivos .ps e .pdf. É possível também gerar arquivos .midi, .png,
-.svg, .dvi e .tex. O portal do software é bastante completo:
-(\url{lilypond.org}). Há um tutorial em português
-(\url{http://erasmo.info/lilypond/tutorial/}) e uma lista de discussão
-brasileira (\url{http://groups.google.com.br/group/lilypond-brasil}).
-
-
-\section{Código básico para diversas necessidades}
-\label{sec:codigo-basico-para}
-
-\subsection{O mínimo para gerar arquivo midi}
-\label{sec:o-minimo-para}
-
-O código abaixo tem uma estrutura mínima para gerar um arquivo .midi,
-além do .ps e .pdf.
-
-\begin{verbatim}
-\version "2.10.0"
-
-\score {
-  \new Staff {
-    \relative c'' {
-      %% escreva aqui suas notas
-    }
-  }
-  \layout { }
-  \midi { }
-}
-\end{verbatim}
-
-O comando \texttt{version} define a versão do Lilypond à qual os
-comandos estão relacionados. O comando \texttt{relative} define uma
-oitava relativa para a música. No exemplo acima, dó 4.
-
-\subsection{Abstração de comandos em variáveis}
-\label{sec:abstr-de-comand}
-
-É muito útil usar variáveis para abstrair código.
-
-Um código como este:
-
-\begin{verbatim}
-\relative c' {
-  c4 d e f
-  <c e g>4 <g b d> <c e g> <f a c>
-}
-\end{verbatim}
-
-Pode ser escrito desta forma:
-
-\begin{verbatim}
-motivoa = {
-  c4 d e f
-}
-
-motivob = {
-  <c e g>4 <g b d> <c e g> <f a c>
-}
-
-\relative c' {
-  \motivoa
-  \motivob
-}
-\end{verbatim}
-
-\subsection{Usando variáveis em partituras com vários instrumentos}
-\label{sec:usando-variaveis-em}
-
-Para escrever para vários instrumentos é interessante abstrair o
-material de cada instrumento em uma variável e, opcionalmente, colocar
-essas variáveis em arquivos diferentes. No exemplo abaixo o material
-dos instrumentos foram abstraídos nas variáveis viola e
-violoncelo. Então inserimos \texttt{viola} e \texttt{violoncelo} em
-partitura.ly e definimos essas variáveis nos arquivos viola.ly e
-violoncelo.ly
-
-Uma partitura com dois instrumentos e variáveis definidas em um único
-arquivo pode ser feita assim:
-
-Arquivo tudo-em-um.ly:
-
-\begin{verbatim}
-%% variável global. aqui inserimos elementos que deverão aparecer em
-%% todos os instrumentos.
-global = {
-  \time 3/4
-  \key c \minor
-  \tempo 4=80
-  s1*3/4*2
-  \bar "||"
-  \tempo 8=60
-  s1*3/4
-  \bar "|."
-}
-
-%% definição da variável viola, com o material musical deste
-%% instrumento.
-viola = {
-  \relative c {
-    \clef alto
-    c\ppp\< d ees
-    f\fff g aes
-    c d ees
-  }
-}
-
-%% definição da variável violoncelo, com o material musical deste
-%% instrumento.
-violoncelo = {
-  \relative c {
-    \clef bass
-    cis\ppp\< dis cis
-    c\fff d c
-    cis dis cis
-  }
-}
-
-%% partitura
-\score {
-  \new ChoirStaff <<
-    \new Staff <<
-      \set Staff.instrumentName = "Viola "
-      \set Staff.midiInstrument = "viola"
-      \global
-      \viola
-    >>
-    \new Staff <<
-      \set Staff.instrumentName = "Violoncelo "
-      \set Staff.midiInstrument = "cello"
-      \global
-      \violoncelo
-    >>
-  >>
-  %% outras configurações gerais (layout, midi, page)
-  \layout { }
-  \midi { }
-}
-\end{verbatim}
-
-Quando a música é grande é interessante colocar as variáveis com
-material dos instrumentos em arquivos diferentes:
-
-Arquivo partitura.ly:
-
-\begin{verbatim}
-%% inclusão de arquivos. Aqui carregamos os arquivos necessários para
-%% gerar a partitura.
-\include "viola.ly"
-\include "violoncelo.ly"
-
-%% variável global. aqui inserimos elementos que deverão aparecer em
-%% todos os instrumentos.
-global = {
-  \time 3/4
-  \key c \minor
-  \tempo 4=80
-  s1*3/4*2
-  \bar "||"
-  \tempo 8=60
-  s1*3/4
-  \bar "|."
-}
-
-%% partitura
-\score {
-  \new ChoirStaff <<
-    \new Staff <<
-      \set Staff.instrumentName = "Viola "
-      \set Staff.midiInstrument = "viola"
-      \global
-      \viola
-    >>
-    \new Staff <<
-      \set Staff.instrumentName = "Violoncelo "
-      \set Staff.midiInstrument = "cello"
-      \global
-      \violoncelo
-    >>
-  >>
-  %% outras configurações gerais (layout, midi, page)
-  \layout { }
-  \midi { }
-}
-
-\end{verbatim}
-
-Arquivo viola.ly:
-
-\begin{verbatim}
-%% definição da variável viola, com o material musical deste
-%% instrumento.
-viola = {
-  \relative c {
-    \clef alto
-    c\ppp\< d ees
-    f\fff g aes
-    c d ees
-  }
-}
-\end{verbatim}
-
-Arquivo violoncelo.ly:
-
-\begin{verbatim}
-%% definição da variável violoncelo, com o material musical deste instrumento.
-violoncelo = {
-  \relative c {
-    \clef bass
-    cis\ppp\< dis cis
-    c\fff d c
-    cis dis cis
-  }
-}
-\end{verbatim}
-
-\section{O modo para Emacs}
-\label{sec:o-modo-para-3}
-
-O editor Emacs tem um modo para Lilypond que fornece, indentação,
-coloração da sintaxe, atalhos e manuais.
-
-Para instalar o Lilypond-mode é preciso colocar no \texttt{~/.emacs} o
-caminho para lilypond-init.el as linhas abaixo:
-
-\begin{verbatim}
-(autoload 'LilyPond-mode "lilypond-mode" nil t)
-(setq auto-mode-alist (cons '("\\.ly$" . LilyPond-mode) auto-mode-alist))
-(add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
-\end{verbatim}
-
-\subsection{Criando templates para Lilypond no Emacs}
-\label{sec:criando-templ-para}
-
-O Emacs permite a criação de templates. Abaixo há um exemplo para
-criação de um código \texttt{.ly} simples.
-
-\begin{verbatim}
-(define-skeleton lilypond-simples
-  "Insere um template para lilypond simples."
-  nil
-  "\\version \"2.10.0\"\n"
-  "\\score {\n"
-  "  \\new Staff {\n"
-  "    \\relative c' {\n"
-  "      "_ "\n"
-  "    }\n"
-  "  }\n"
-  "  \\layout { }\n"
-  "  \\midi { }\n"
-  "}\n")
-\end{verbatim}
-
-Um conjunto de templates está sendo criado por Shelagh Manton. Em
-mensagem para a lista de desenvolvedores do Lilypond ele
-disponibilizou estes templates:
-\url{http://lists.gnu.org/archive/html/lilypond-devel/2008-04/msg00116.html}.
-
-Para os templates funcionarem é preciso salvar o arquivo do template
-em anexo na mensagem em um diretório que contenha os arquivos
-\texttt{.el}. Depois é só garantir que este diretório é carregado no
-\texttt{~/.emacs} com uma linha como essa:
-
-\begin{verbatim}
-(add-to-list 'load-path "caminho-para-diretório-com-arquivos-.el")
-\end{verbatim}
 
 \end{document}
