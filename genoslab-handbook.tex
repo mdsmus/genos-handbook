@@ -492,6 +492,75 @@ O menu principal tem os seguintes links:
 \item Search. Procura por palavras em todos os tickets.
 \end{enumerate}
 
+\subsubsection{Criando tickets}
+\label{sec:criando-tickets}
+
+Para criar um ticket basta clicar em \eng{New Ticket}. Os campos
+presentes são:
+
+\begin{enumerate}
+\item Short summary. É o título curto da tarefa. Por exemplo,
+  ``Criar figuras com quintas paralelas''.
+\item Type. Tipo de ticket. Pode ser uma tarefa, relato de bug,
+  etc.
+\item Full Description. Local para explicar detalhadamente, caso
+  necessário, qual a tarefa e como executar. Por exemplo:
+\begin{verbatim}
+1. Rodar o comando
+rameau parallel-fifths -f chora:001..371
+2. Gerar partituras com análise dos corais com quintas paralelas:
+rameau analise -f chora:001 -s
+3. Gerar png das partituras:
+lilypond --png music/chorales-bach/analysis-001.ly
+4. Editar png: recortar o sistema onde acontecem as quintas e circulá-las.
+\end{verbatim}
+\item Priority. Prioridade do ticket.
+\item Component. Módulo do programa. Por exemplo ``analise corais''.
+\item Milestone. Objetivo no tempo. Por exemplo ``artigo anppom
+  2008''.
+\item Version. Versão do que está sendo feito. Por exemplo ``Rameau
+  3.0''.
+\item Assign to. É o dono do ticket. Pessoa que vai executar a
+  tarefa. Por exemplo, ``Natanael''.
+\end{enumerate}
+
+Depois basta clicar em \eng{Submit ticket}.
+
+São obrigatórios apenas os campos Short summary, type, component e
+assign to.
+
+Estes campos podem ser vistos na figura \ref{fig:trac-newticket}.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.5]{trac-newticket}
+  \caption{Janela de criação de ticket no bug trac}
+  \label{fig:trac-newticket}
+\end{figure}
+
+\subsubsection{Visualizando os tickets}
+\label{sec:visu-os-tick}
+
+É possível visualizar tickets de várias maneiras: ativos, fechados,
+todos, os do usuário autenticado, separados por milestones, por donos,
+etc. Cada uma dessas opções dá um relatório dos tickets com várias
+informações.
+
+\subsubsection{Fechando tickets}
+\label{sec:fechando-tickets}
+
+Para fechar um ticket é preciso encontrá-lo (vide seção
+\ref{sec:visu-os-tick}) e então mudar a ação de \eng{leave as new}
+para \eng{resolve}, escolher \eng{fixed} para fechar, e então clicar
+em \eng{Submit changes}. Vide figura \ref{fig:trac-closeticket}.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.5]{trac-closeticket}
+  \caption{Janela de alteração de ticket no bug trac}
+  \label{fig:trac-closeticket}
+\end{figure}
+
 \chapter{Uso do GenosLab}
 \label{cha:uso-do-genoslab}
 
