@@ -2789,4 +2789,54 @@ O Gimp (\url{http://www.gimp.org/}) é um editor de imagens.
   \verb!/etc/security/limits.conf!
 \end{enumerate}
 
+\section{Particionamento das máquinas}
+\label{sec:part-das-maqu}
+
+As partições das máquinas do Genos estão nas tabelas
+\ref{tab:part-tesla}, \ref{tab:part-bohr} e \ref{tab:part-newton}.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{llr}
+    Dispositivo & Ponto de montagem & Tamanho \\
+    \hline
+    sda1 & /boot & 99 MB \\
+    sda2 & swap & \\
+    sda3 & / & 20 GB \\
+    sda4 & /home & 446 GB \\
+    sdb1 & /shared & 466 GB \\
+  \end{tabular}
+  \caption{Partições do Tesla}
+  \label{tab:part-tesla}
+\end{table}
+
+\begin{table}
+  \centering
+  \begin{tabular}{llr}
+    Dispositivo & Ponto de montagem & Tamanho \\
+    \hline
+    sda1 & /boot & 274 MB \\
+    sda2 & / & 28 GB \\
+    sda3 & swap & \\
+    sda4 & /home & 436 GB \\
+  \end{tabular}
+  \caption{Partições do Bohr}
+  \label{tab:part-bohr}
+\end{table}
+
+\begin{table}
+  \centering
+  \begin{tabular}{llr}
+    Dispositivo & Ponto de montagem & Tamanho \\
+    \hline
+    sda1 & /boot & 183 MB \\
+    sda2 & / & 28 GB \\
+    sda3 & /home & 87 GB \\
+    sdb1 & /shared & 113 GB \\
+    sdb2 & swap & \\
+  \end{tabular}
+  \caption{Partições do Newton}
+  \label{tab:part-newton}
+\end{table}
+
 \end{document}
