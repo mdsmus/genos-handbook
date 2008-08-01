@@ -2750,4 +2750,43 @@ softwares livres (Sodipodi) e proprietários (CorelDRAW).
 
 O Gimp (\url{http://www.gimp.org/}) é um editor de imagens.
 
+\part{Administração}
+\label{part:administracao}
+
+\chapter{Máquinas do GenosLab}
+\label{cha:maquinas-do-genoslab}
+
+\section{Tutorial de instalação e sincronização de sistema}
+\label{sec:tutor-de-inst}
+
+\begin{enumerate}
+\item Verificar partições das máquinas
+\item Instalar o ArchLinux a partir do cd com pacotes básicos
+\item Configurar rc.conf (host e eth0)
+\item Configurar hosts.deny
+\item Inserir senha de root
+\item Atualizar pacotes: \verb!pacman -Sy!
+\item Instalar git e rsync
+\item Levantar ssh: \verb!/etc/rc.d/sshd start!
+\item Colocar /etc em controle de versão (fazer commit a cada passo dado)
+\item Baixar pacotes de outra máquina para \verb!/var/cache/pacman/pkg/!
+\item Baixar repositório genos-utils em \verb!/root/!:
+\item Instalar pacotes genos-base: \verb!pacman -S $(cat /root/genos-utils/manutencao/genos-base.txt)!
+\item Copiar preâmbulo e daemons de
+  \verb!/root/genos-utils/manutencao/etc/rc.conf.template! para \verb!/etc/rc.conf!
+\item Copiar configuração de gdm:
+  \verb!cp /root/genos-utils/manutencao/etc/custom.conf /etc/gdm/!
+\item Configurar locale:
+  \verb!cp /root/genos-utils/manutencao/etc/locale.gen /etc! e rodar
+  \verb!locale-gen!
+\item Remove configurações do gnome de todos os usuários: \verb!rm -r /home/*/.{gnome*,gconf*}!
+\item Verificar permissões de usuários
+\item Verificar se \verb!/shared/arch/! está atualizada
+\item Ajustar relógio \verb!ntpdate ntp.on.br!
+\item Configurar kernelrt no grub
+\item Baixar abs: \verb!abs!
+\item Alterar limite para ardour. Colocar unlimited em memlock em
+  \verb!/etc/security/limits.conf!
+\end{enumerate}
+
 \end{document}
