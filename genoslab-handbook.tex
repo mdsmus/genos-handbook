@@ -1422,6 +1422,86 @@ deve ser colocado na pasta pessoal do usuário. No Linux ele fica em
 Emacs, digite o comando \verb!(insert (getenv "HOME"))! e compute com
 C-x C-e.
 
+\subsection{Ponto emacs básico}
+\label{sec:dot-emacs-basico}
+
+\begin{verbatim}
+(put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'overwrite-mode 'disabled t)
+
+(setq display-time-day-and-date t
+      display-time-24hr-format t
+      confirm-kill-emacs 'yes-or-no-p
+      inhibit-startup-message t
+      font-lock-maximum-decoration t
+      sentence-end-double-space nil ; usa espaços simples para sentenças
+      default-abbrev-mode t
+      vc-follow-symlinks t
+      x-select-enable-clipboard t
+      text-mode-hook '(turn-on-auto-fill footnote-mode text-mode-hook-identify)
+      ediff-window-setup-function 'ediff-setup-windows-plain
+      ediff-split-window-function 'split-window-horizontally)
+
+(setq-default indent-tabs-mode nil)
+(tool-bar-mode -1)
+(show-paren-mode t)
+(display-time-mode t)
+(column-number-mode t)
+(ido-mode t)
+(transient-mark-mode -1)
+
+(fset 'yes-or-no-p 'y-or-n-p) 
+(set-default-coding-systems 'utf-8)
+
+;; descomente isso para salvar todos os backups em um unico lugar
+;;(setq backup-by-copying t
+;;      backup-directory-alist '(("." . "~/tmp/emacs-backups"))
+;;      delete-old-versions t
+;;      kept-new-versions 6
+;;      kept-old-versions 2
+;;      version-control t)
+
+;;; replace string
+(global-set-key (kbd "C-c r") 'replace-string)
+
+;;; footnote mode
+(autoload 'footnote-mode "footnote" nil t)
+(add-hook 'message-mode-hook 'footnote-mode)
+(add-hook 'text-mode-hook 'footnote-mode)
+
+;;; git (vc-mode)
+(when (featurep 'vc-git)
+  (add-to-list 'vc-handled-backends 'git))
+
+;;; erc
+(eval-after-load "erc"
+  '(progn
+     ;(easy-menu-add-item  nil '("tools") ["IRC" erc-select t])
+     (setq erc-timestamp-format "[%H:%M] ")
+     (erc-autojoin-mode 1)
+     (setq erc-autojoin-channels-alist
+	   '(("freenode.net" "#lisp" )))))
+
+;;; ispell
+(eval-after-load "ispell"
+  (progn
+    (setq ispell-silently-savep t
+	  ispell-program-name "aspell"
+	  ispell-dictionary "american")))
+
+;;; nxml
+(add-to-list 'auto-mode-alist
+	     (cons (concat "\\." (regexp-opt '("xml" "xsd" "sch" "rng" "xslt" "svg" "rss") t) "\\'")
+		   'nxml-mode))
+(unify-8859-on-decoding-mode)
+(setq magic-mode-alist
+      (cons '("<\\?xml " . nxml-mode)
+	    magic-mode-alist))
+(fset 'xml-mode 'nxml-mode)
+\end{verbatim}
+
 \section{Definir teclas}
 \label{sec:teclas}
 
@@ -1678,6 +1758,33 @@ campos na forma ``xxx-url'' onde xxx é algum texto explicativo como
 dvi, pdf etc. Urls de resumos devem ser colocadas no campo
 ``abstract-url''. Os estilos is-{abbrv,alpha,plain,unsrt} reconhecem
 os campos ISBN, URL, IOB, dentre outros.
+
+\section{Editando a coleção de bibliografias do genos}
+\label{sec:editando-colecao-de}
+
+Para editar a coleção de bibliografias do genos coloque as seguintes
+linhas no seu \texttt{.emacs} para garantir que as chaves serão
+geradas corretamente:
+
+\begin{verbatim}
+(require 'bibtex)
+
+(setq bibtex-autokey-additional-names ".ea"
+      bibtex-autokey-names-stretch 0
+      bibtex-autokey-titleword-ignore '("O" "Os" "A" "An" "On" "The" "Eine?" "Der" "Die" "Das" "[^[:upper:]].*" ".*[^[:upper:]0-9].*")
+      bibtex-autokey-titleword-length 'infty
+      bibtex-autokey-titleword-separator ""
+      bibtex-autokey-titlewords 1
+      bibtex-autokey-titlewords-stretch 0
+      bibtex-autokey-year-title-separator ":")
+
+(defmacro append-to-list (var list)
+  `(setq ,var (append ,var ,list)))
+
+(let ((subst-string '(("ö" . "o") ("ä" . "a") ("ë" . "e") ("ï". "i") ("ü" . "u"))))
+  (append-to-list bibtex-autokey-name-change-strings subst-string)
+  (append-to-list bibtex-autokey-titleword-change-strings subst-string))
+\end{verbatim}
 
 \begin{verbatim}
 abntex - LaTeX class for writing documents in ABNT standard
