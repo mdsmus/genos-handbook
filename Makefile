@@ -2,6 +2,11 @@ NAME = genoslab-handbook
 USE_PDFLATEX=1
 -include /usr/share/latex-mk/latex.gmk
 
+PDFLATEX=/usr/bin/pdflatex
+BIBTEX=/usr//bin/bibtex
+MAKEIDX=/usr//bin/makeindex
+MAKEGLS=/usr/bin/makeindex
+
 #LATEX2HTML_FLAGS += -split 2 -style genoslab.css -noaddress -init_file latex2htmlrc -show_section_numbers -dir html
 
 latex2html = latex2html -html_version 4.0,unicode -split 3 -style genoslab.css -noaddress -init_file latex2htmlrc -show_section_numbers
