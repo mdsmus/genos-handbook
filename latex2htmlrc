@@ -3,3 +3,4 @@
     , 'subsubsection', 'H5', 'paragraph', 'H6', 'subparagraph', 'H6' );
 
 $USE_CURLY_QUOTES=1;
+$ICONSERVER=/srv/http/genos.mus.br/html2latex-icons/;
