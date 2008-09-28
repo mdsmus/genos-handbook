@@ -1826,31 +1826,23 @@ C-x v u
 \chapter{LaTeX}
 \label{cha:latex}
 
-ii  texlive                              2007-12                     TeX Live: A decent selection of the TeX Live packages
-ii  texlive-base                         2007-12                     TeX Live: Essential programs and files
-ii  texlive-base-bin                     2007-14                     TeX Live: Essential binaries
-ii  texlive-bibtex-extra                 2007-3                      TeX Live: Extra BibTeX styles
-ii  texlive-common                       2007-12                     TeX Live: Base component
-ii  texlive-doc-base                     2007-3                      TeX Live: Base documentation
-ii  texlive-extra-utils                  2007-14                     TeX Live: TeX auxiliary programs
-ii  texlive-font-utils                   2007-14                     TeX Live: TeX font-related programs
-ii  texlive-fonts-extra                  2007-3                      TeX Live: Extra fonts
-ii  texlive-fonts-recommended            2007-12                     TeX Live: Recommended fonts
-ii  texlive-generic-extra                2007-3                      TeX Live: Miscellaneous extra generic macros
-ii  texlive-generic-recommended          2007-12                     TeX Live: Miscellaneous generic macros
-ii  texlive-lang-polish                  2007.dfsg.3-1               TeX Live: Polish
-ii  texlive-lang-portuguese              2007.dfsg.3-1               TeX Live: Portuguese
-ii  texlive-lang-spanish                 2007.dfsg.3-1               TeX Live: Spanish
-ii  texlive-lang-swedish                 2007.dfsg.3-1               TeX Live: Swedish
-ii  texlive-lang-vietnamese              2007.dfsg.3-1               TeX Live: Vietnamese
-ii  texlive-latex-base                   2007-12                     TeX Live: Basic LaTeX packages
-ii  texlive-latex-extra                  2007-3                      TeX Live: LaTeX supplementary packages
-ii  texlive-latex-recommended            2007-12                     TeX Live: LaTeX recommended packages
-ii  texlive-math-extra                   2007-3                      TeX Live: Advanced math typesetting
-ii  texlive-pictures                     2007-12                     TeX Live: Packages for drawings graphics
-ii  texlive-pstricks                     2007-3                      TeX Live: PSTricks packages
-ii  texlive-publishers                   2007-3                      TeX Live: Support for publishers
+\section{Usando o estilo para teses e dissertações do PPGMUS-UFBA}
+\label{sec:usando-o-estilo}
 
+Para escrever sua dissertação ou tese usando o LaTeX nós recomendamos
+usar o estilo desenvolvido pelo Genos. Você pode baixar o estilo no
+link
+\url{http://git.genos.mus.br/cgit.cgi?url=lib/plain/latex/ppgmus.cls}.
+O arquivo \url{src/modelo-ppgmus-simples.tex} é um exemplo de
+utilização do estilo sem usar todas as opções, enquanto o arquivo
+\url{modelo-ppgmus-completo.tex} mostra como usar todas as opções
+disponíveis. O resultado de \url{modelo-ppgmus-completo.tex} pode ser
+visto em \url{modelo-ppgmus-completo.pdf}.
+
+A página de dedicatória só é gerada se \verb!\textoDedicatoria! for
+definida. Da mesma maneira, a página de epígrafe só é gerada se
+\verb!\textoEpigrafe! for definida. A opção \verb!\autorEpigrafe! é
+opcional.
 
 \chapter{BibTeX}
 \label{cha:bibtex}
