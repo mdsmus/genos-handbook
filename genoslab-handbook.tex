@@ -9,6 +9,7 @@
 
 \newcommand{\sep}{$\rightarrow$}
 \newcommand{\eng}[1]{\textit{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
 
 \title{Genoslab Handbook}
 \author{Pedro Kröger, Marcos di Silva e Alexandre Passos}
@@ -183,6 +184,135 @@ Description:
 
 \part{Guia para membros do Genos}
 \label{part:guia-para-membros}
+
+\chapter{Ferramentas on-line do genos}
+\label{cha:ferramentas-line-do}
+
+\chapter{Editando o wiki do genos}
+\label{cha:editando-o-wiki}
+
+\section{Editando o wiki off-line com git}
+\label{sec:editando-o-wiki}
+
+Você pode baixar o wiki para o seu computador com o git, fazer
+modificações e enviar de volta para o servidor. Por exemplo, para
+editar a página principal do wiki:
+
+\begin{verbatim}
+git clone git@genos.mus.br:genos-wiki
+cd genos-wiki
+... edita index.mdwn ...
+git add index.mdwn
+git commit -m "acrescenta mais texto"
+git push
+\end{verbatim}
+
+Contudo, se você vai trabalhar bastante no wiki é mais prático ter uma
+cópia local do wiki para você acompanhar as mudanças sem ter que
+envia-las para o repositório central. Isso é particularmente útil para
+modificar o estilo css.
+
+Primeiramente você precisa instalar o ikiwiki e um servidor web no seu
+computador. O lighttpd é uma alternativa leve e rápida ao Apache.
+
+\begin{verbatim}
+pacman -S ikiwiki lighttpd
+\end{verbatim}
+
+Além disso é necessário instalar alguns pacotes de perl para que
+alguns plugins do ikiwiki funcionem:
+
+\begin{verbatim}
+pacman -S perl-net-openid-consumer xapian-omega perl-crypt-dh \
+          perl-search-xapian perl-paranoid perl-crypt-ssleay \
+          perl-libwww perl-uri-fetch perl-digest-sha1 \
+          perl-html-scrubber xapian-core 
+\end{verbatim}
+
+O próximo passo é configurar o lighttpd. Acrescente as seguintes
+linhas no arquivo de configuração em
+\url{/etc/lighttpd/lighttpd.conf}:
+
+\begin{verbatim}
+userdir.path = "public_html"
+cgi.assign = ( "ikiwiki.cgi" => "")
+\end{verbatim}
+
+Além disso garanta que os seguintes modulos estão ativados no arquivo
+de configuração do lighttpd (eles estão ativados se não tiverem um
+``\#'' na linha):
+
+\begin{verbatim}
+server.modules = ("mod_access",
+                  "mod_userdir",
+                  "mod_cgi",
+                  "mod_usertrack",
+                  "mod_accesslog" )
+\end{verbatim}
+
+Reinicie o lighttpd com \code{/etc/rc.d/lighttpd restart} ou
+\code{/etc/init.d/lighttpd restart} a depender da sua distribuição e
+crie o arquivo abaixo para testar se o lighttpd está funcionando:
+
+\begin{verbatim}
+cat foo > ~/public_html/index.html
+\end{verbatim}
+
+Se o lighttpd estiver funcionando voce deve ver ``foo'' quando digitar
+\url{http://localhost/~<seu nome de usuário>/} no seu navegador.
+
+Faça um clone dos repositorios genos-wiki e genos-wiki-templates em
+\url{http://git.genos.mus.br/}
+
+\begin{verbatim}
+cd ~/server
+git clone git@genos.mus.br:genos-wiki
+git clone git@genos.mus.br:genos-wiki-templates
+\end{verbatim}
+
+Baixe o arquivo \url{src/home-wiki.setup} para seu computador e
+modifique as linhas abaixo para corresponder ao seu sistema:
+
+\begin{verbatim}
+srcdir => '/home/kroger/server/genos-wiki/',
+destdir => '/home/kroger/public_html/genos-wiki-html/',
+templatedir => '/home/kroger/server/genos-wiki-templates',
+cgi_wrapper => '/home/kroger/public_html/genos-wiki-html/ikiwiki.cgi',
+git_wrapper => '/home/kroger/server/genos-wiki/.git/hooks/post-commit',
+url => 'http://localhost/~kroger/genos-wiki-html/',
+\end{verbatim}
+
+Uma breve explicação sobre cada variável: \code{srcdir} é onde fica o
+clone local do repositório do wiki, \code{destdir} é onde as páginas
+vão ser geradas (tem que ser dentro de public\_html para o servidor
+web encontrá-las, \code{templatedir} é a cópia local do repositório
+com os templates, \code{cgi\_wrapper} é onde será gerado o cgi,
+\code{git\_wrapper} é onde será gerado o post-commit do git,
+\code{url} é como você acessará a página localmente.
+
+Para gerar o wiki localmente execute o seguinte comando:
+
+\begin{verbatim}
+ikiwiki --setup home-wiki.setup
+\end{verbatim}
+
+Você pode executar esse comando cada vez que quiser re-generar o wiki
+(por exemplo, quando tiver modificado uma página).
+
+Um exemplo de fluxo de trabalho: edita a página
+\url{~/genos-wiki/index.mdwn}, roda \code{ikiwiki --setup
+  home-wiki.setup}, vê as modificações em
+\url{http://localhost/~kroger/genos-wiki-html/} (modifique kroger pelo
+seu nome de usuário), edita \url{index.mdwn} novamente, roda
+\code{ikiwiki} novamente, visualiza a página novamente, e assim
+sucessivamente até estar satisfeito com o resultado. Quando estiver
+satisfeito você pode fazer um commit na página e dar um push para e
+repositório remoto. Uma vantagem dessa abordagem é não criar um commit
+para cada alteração menor e não poluir a lista de commits.
+
+Com esse setup o seu wiki será gerado novamente a cada commit que você
+fizer. Uma boa prática é criar um branch para trabalhar localmente e
+fazer um merge com master quando estiver satisfeito com os resultados.
 
 \chapter{Pesquisas do Genos}
 \label{cha:pesquisas-do-genos}
