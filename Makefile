@@ -2,6 +2,7 @@ NAME = genoslab-handbook
 USE_PDFLATEX=1
 -include /usr/share/latex-mk/latex.gmk
 
+TEXINPUTS=figs:
 PDFLATEX=/usr/bin/pdflatex
 BIBTEX=/usr//bin/bibtex
 MAKEIDX=/usr//bin/makeindex
@@ -14,6 +15,7 @@ latex2html = latex2html -html_version 4.0,unicode -split 3 -style genoslab.css -
 gera-html: pdf
 	$(latex2html) $(NAME).tex
 	cp genoslab.css $(NAME)
+	cp -Rv src $(NAME)
 
 push: gera-html
 	git push
