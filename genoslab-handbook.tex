@@ -185,9 +185,6 @@ Description:
 \part{Guia para membros do Genos}
 \label{part:guia-para-membros}
 
-\chapter{Ferramentas on-line do genos}
-\label{cha:ferramentas-line-do}
-
 \chapter{Editando o wiki do genos}
 \label{cha:editando-o-wiki}
 
@@ -313,6 +310,40 @@ para cada alteração menor e não poluir a lista de commits.
 Com esse setup o seu wiki será gerado novamente a cada commit que você
 fizer. Uma boa prática é criar um branch para trabalhar localmente e
 fazer um merge com master quando estiver satisfeito com os resultados.
+
+\section{Usando o repositório de arquivos}
+\label{sec:usando-o-repositorio}
+
+O genos tem um repositório para arquivos em
+\url{http://docs.genos.mus.br/}. É uma boa prática colocar arquivos
+nesse repositório e não como anexos no wiki do genos. Nesse
+repositório devem entrar coisas como artigos em pdf e instrumentos do
+csound e PD. Lembre-se que o repositório é compartilhado, então não
+coloque nada que você não queira que as pessoas não vejam. Da mesma
+maneira, procure colocar coisas que sejam de interesse dos membros do
+genos, evitando usar o espaço para arquivos pessoais (existem serviços
+na internet para isso).
+
+Para acessar o arquivo você precisa de uma chave pública de
+criptografia (ver seção \ref{sec:acesso-de-escrita}). Se você já tem
+uma chave pública no genos ela será usada nesse repositório também.
+Você pode enviar e baixar arquivos do repositório com rsync, scp, e
+sftp. Além disso você pode baixar arquivos através do navegador.
+
+O uso de um cliente de ftp é uma maneira fácil e prática de navegar na
+estrutura de arquivos e baixar ou enviar apenas poucos arquivos. A
+figura \ref{fig:gftp} mostra uma seção com o cliente de ftp chamado
+gftp. Na opção host você deve colocar \url{genos.mus.br}, em user deve
+colocar \code{genos} e a senha deve ser a sua palavra chave da chave
+pública.
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=.7]{gftp-genos}
+  \caption{Acessando repositório de arquivos com gftp}
+  \label{fig:gftp}
+\end{figure}
+
 
 \chapter{Pesquisas do Genos}
 \label{cha:pesquisas-do-genos}
