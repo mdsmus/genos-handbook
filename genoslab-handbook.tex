@@ -1069,8 +1069,7 @@ Para atualizar sua cópia local, ou seja, para baixar as mudanças que
 outros tenham feito no repositório, use os comandos:
 
 \begin{verbatim}
-git fetch
-git rebase origin/<branch remoto>
+git pull --rebase
 \end{verbatim}
 
 onde <branch remoto> é o branch remoto onde o desenvolvimento
@@ -1119,7 +1118,7 @@ das mudanças locais no repositório remoto. Com mais de duas pessoas
 fazendo mudanças ao mesmo tempo esse método gera árvores de histórico
 complicadas e difíceis de entender depois, com vários merges.
 
-Uma alternativa é usar ``git rebase origin/master'' em vez de ``git
+Uma alternativa é usar ``git pull --rebase'' em vez de ``git
 pull''. Fazendo isso, a árvore local, que era
 
 \begin{verbatim}
@@ -1645,23 +1644,23 @@ C-x C-e.
      (setq erc-timestamp-format "[%H:%M] ")
      (erc-autojoin-mode 1)
      (setq erc-autojoin-channels-alist
-	   '(("freenode.net" "#lisp" )))))
+     '(("freenode.net" "#lisp" )))))
 
 ;;; ispell
 (eval-after-load "ispell"
   (progn
     (setq ispell-silently-savep t
-	  ispell-program-name "aspell"
-	  ispell-dictionary "american")))
+    ispell-program-name "aspell"
+    ispell-dictionary "american")))
 
 ;;; nxml
 (add-to-list 'auto-mode-alist
-	     (cons (concat "\\." (regexp-opt '("xml" "xsd" "sch" "rng" "xslt" "svg" "rss") t) "\\'")
-		   'nxml-mode))
+       (cons (concat "\\." (regexp-opt '("xml" "xsd" "sch" "rng" "xslt" "svg" "rss") t) "\\'")
+       'nxml-mode))
 (unify-8859-on-decoding-mode)
 (setq magic-mode-alist
       (cons '("<\\?xml " . nxml-mode)
-	    magic-mode-alist))
+      magic-mode-alist))
 (fset 'xml-mode 'nxml-mode)
 \end{verbatim}
 
