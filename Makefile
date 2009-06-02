@@ -1,6 +1,7 @@
 NAME = genoslab-handbook
 USE_PDFLATEX=1
 -include /usr/share/latex-mk/latex.gmk
+include ~/.latexmk
 
 TEXINPUTS=figs:
 PDFLATEX=/usr/bin/pdflatex

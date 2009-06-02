@@ -1855,6 +1855,149 @@ Reverte um arquivo para a última revisão
 C-x v u                                                                                                          
 \end{verbatim}
 
+\chapter{Common lisp}
+\label{cha:common-lisp}
+
+\section{Configurando o emacs}
+\label{sec:configurando-o-emacs}
+
+O emacs é uma excelente plataforma para o desenvolvimento de programas
+em Common Lisp, especialmente usando o slime e outros pacotes como
+paredit, redshank, e outline-magic. Você pode instalar o slime usando
+o gerenciador de pacote da sua plataforma, mas geralmente a versão
+disponível em algumas distribuições é muito antiga. Eu sugiro instalar
+a versão mais nova direto da página do slime. O tutorial abaixo
+considera que você vai instalar o slime e os modos no diretório
+\texttt{.emacs.d} no seu \texttt{\$HOME}. Naturalmente você terá que
+adequar algumas coisas ao seu sistema.
+
+\begin{enumerate}
+\item crie o diretório para colocar os arquivos do emacs:
+\begin{verbatim}
+mkdir ~/.emacs.d
+\end{verbatim}
+\item baixe a versão mais atual do slime:
+\begin{verbatim}
+wget http://common-lisp.net/project/slime/snapshots/slime-current.tgz
+\end{verbatim}
+\item descompacte o arquivo em \verb!~/.emacs.d!:
+\begin{verbatim}
+tar -C ~/.emacs.d -xzf slime-current.tgz
+\end{verbatim}
+\item quando descompactado o diretório criado tem o formato
+  slime-ano-mes-dia. Renomeie o diretório para slime:
+\begin{verbatim}
+mv ~/.emacs.d/slime-2009-06-01 ~/.emacs.d/slime
+\end{verbatim}
+\item abaixe os modos necessários com os comandos abaixo:
+\begin{verbatim}
+wget -P ~/.emacs.d http://staff.science.uva.nl/~dominik/Tools/outline-magic.el
+wget -P ~/.emacs.d -O paredit.el http://mumble.net/~campbell/emacs/paredit-beta.el
+wget -P ~/.emacs.d http://www.foldr.org/~michaelw/projects/redshank/redshank.el
+wget -P ~/.emacs.d http://www.foldr.org/~michaelw/projects/redshank/redshank.lisp
+wget -P ~/.emacs.d http://www.gnuvola.org/software/j/hideshow/hideshow.el
+wget -P ~/.emacs.d
+http://github.com/secelis/hideshow-org/raw/32cbb0c583f148cd3c8d7a141ad4f2f596c0f123/hideshow-org.el
+\end{verbatim}
+\item baixe a documentação de lisp e descompacte em ~/.emacs.d
+\begin{verbatim}
+wget
+ftp://ftp.lispworks.com/pub/software_tools/reference/HyperSpec-7-0.tar.gz
+
+tar -C ~/.emacs.d -xzf HyperSpec-7-0.tar.gz
+\end{verbatim}
+\end{enumerate}
+
+Coloque o seguinte conteúdo no seu \texttt{.emacs}:
+
+\begin{verbatim}
+(add-to-list 'load-path "~/.emacs.d/slime")
+(add-to-list 'load-path "~/.emacs.d/")
+
+(require 'slime)
+(require 'paredit)
+(require 'redshank)
+(require 'hideshow)
+(require 'hideshow-org)
+
+(slime-setup '(slime-fancy))
+
+(setq inferior-lisp-program "/usr/bin/sbcl")
+(setq common-lisp-hyperspec-root
+      (concat "file:" (expand-file-name "~/.emacs.d/HyperSpec/")))
+
+(global-set-key [f11] 'slime-selector)
+(global-set-key [f6] 'slime)
+(global-set-key [f7] 'slime-quit-lisp)
+
+(defun show-outline-structure ()
+  "Show the outline-mode structure of the current buffer."
+  (interactive)
+  (occur (concat "^" outline-regexp)))
+
+(defun pretty-lambdas ()
+  (font-lock-add-keywords
+   nil `(("(\\(lambda\\>\\)"
+          (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                    ,(make-char 'greek-iso8859-7 107))
+                    nil))))))
+
+(setq slime-complete-symbol*-fancy t
+      slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+      slime-startup-animation nil
+      indent-tabs-mode nil
+      lisp-simple-loop-indentation 1
+      lisp-loop-keyword-indentation 6
+      lisp-loop-forms-indentation 6
+      slime-net-coding-system 'utf-8-unix
+      lisp-indent-function 'common-lisp-indent-function)
+
+(add-hook 'lisp-mode-hook 'slime-lisp-mode-hook)
+
+(add-hook 'lisp-mode-hook
+          (lambda ()
+            (abbrev-mode 1)
+            (make-local-variable 'outline-regexp)
+            (setq outline-regexp ";+")
+            (imenu-add-menubar-index)
+            (outline-minor-mode t)
+	    (paredit-mode +1)
+            (pretty-lambdas)
+	    (redshank-mode +1)
+            (hs-minor-mode 1)
+            (hs-org/minor-mode 1)
+            (set-variable lisp-indent-function 'common-lisp-indent-function)))
+
+(add-hook 'outline-minor-mode-hook 
+          (lambda () 
+            (require 'outline-magic)
+            (define-key outline-minor-mode-map [(f10)] 'outline-cycle)))
+
+(add-hook 'slime-repl-mode-hook
+          (lambda ()
+            (local-set-key [up] 'slime-repl-previous-input)
+            (local-set-key [down] 'slime-repl-next-input)))
+
+(add-hook 'slime-mode-hook 
+          (lambda ()
+	    (define-key slime-mode-map (kbd "C-t") 'transpose-sexps)
+	    (define-key slime-mode-map (kbd "C-M-t") 'transpose-chars)
+	    (define-key slime-mode-map (kbd "C-b") 'backward-sexp)
+	    (define-key slime-mode-map (kbd "C-M-b") 'backward-char)
+	    (define-key slime-mode-map (kbd "C-f") 'forward-sexp)
+	    (define-key slime-mode-map (kbd "C-M-f") 'forward-char)
+            (define-key slime-mode-map "\r" 'newline-and-indent)
+	    (define-key slime-mode-map (kbd "C-c C-n") 'slime-eval-defun)
+            (define-key slime-mode-map [C-tab] 'slime-indent-and-complete-symbol)))
+
+(font-lock-add-keywords 'lisp-mode
+  '(("\\<\\((deftest\\|(defrule\\|(defcommand\\|(test\\|(definstr\\|(rule-[0-9]+\\)\\>[ \t]+\\(\\w+\\)"
+     (1 font-lock-keyword-face)
+     (2 font-lock-function-name-face))
+    ))
+\end{verbatim}
+
+
 \chapter{LaTeX}
 \label{cha:latex}
 
