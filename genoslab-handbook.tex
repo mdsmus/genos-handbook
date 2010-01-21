@@ -1462,6 +1462,40 @@ faz o pull das modificações no repo remoto.
 O procedimento para clonar um repo remoto está descrito na seção
 \ref{sec:acesso-de-escrita}.
 
+\section{Repositórios no Github}
+\label{sec:repos-no-gith}
+
+Para usar os repositórios do Genos no Github (\url{http://github.com})
+é preciso criar uma conta e fazer um fork dos repositórios da conta de
+Pedro, em \url{http://github.com/kroger}.
+
+Para fazer o fork basta entrar na página do repositório escolhido e
+clicar em ``fork''.
+
+Em seguida é só fazer um clone do repositório para sua máquina, com o
+comando \verb!git clone git@github.com:seu-login/nome-do-repo.git!.
+
+Dessa forma você estará lidando com três repositórios: o repositório
+principal de Pedro no Github, o seu fork no Github, e sua cópia local.
+
+Para manter a sua cópia local com as mudanças no repositório principal
+(de Pedro) é preciso adicionar o caminho às suas configurações:
+
+\verb!git remote add upstream git://github.com/kroger/nome-do-repo.git!
+
+Em seguida é necessário baixar e juntar as mudanças do repo de Pedro
+(upstream) com a sua cópia local:
+
+\verb!git fetch upstream!
+
+\verb!git merge upstream/master!
+
+\verb!git pull upstream master!
+
+Então basta enviar as mudanças para a sua cópia online:
+
+\verb!git push origin master!
+
 \chapter{Gravação de CD e DVD}
 \label{cha:gravacao-de-cd}
 
